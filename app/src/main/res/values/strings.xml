@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">XetNghiem</string>
+    <!--Loading dialog-->
+    <string name="waiting_msg">Xin vui lòng chờ...</string>
+    <string name="dialog_cancel">Bạn đã hủy</string>
+    <string name="dialog_default_title">Thông báo</string>
+    <string name="label_phone_bookappt">Số điện thoại</string>
+    <string name="label_fullname_quickbook">Tên</string>
+    <string name="label_date_bookapt">Ngày hẹn</string>
+    <string name="error_invalid_phone">Số điện thoại không hợp lệ</string>
+    <string name="label_error_appnt_date">Ngày hẹn không hợp lệ</string>
+    <string name="label_content_bookapt">Nội dung</string>
+    <string name="label_button_bookapt">Đặt lịch</string>
+    <string name="OK">Đồng ý</string>
+    <string name="Cancel">Hủy</string>
+
+    <string name="error_on_error_when_call_api">Không thể kết nối đến máy chủ</string>
 </resources>

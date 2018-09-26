@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context="com.dentalclinic.capstone.activities.quickbookActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/img_logo_quick_register"-->
+                <!--android:layout_width="130dp"-->
+                <!--android:layout_height="130dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:src="@drawable/dental_icon" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/label_title_quickbook"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textColor="@color/color_black"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--/>-->
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:layout_marginTop="@dimen/margin_control"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_fullname_quickbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_account_circle_black_24dp"
+                    android:hint="@string/label_fullname_quickbook"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/edittext_size_medium"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_control">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_phone_quickbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_phone_iphone_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/label_phone_bookappt"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:textSize="@dimen/label_size_medium"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_control"
+                android:layoutDirection="ltr"
+                android:weightSum="100"
+                android:paddingTop="20dp"
+                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_date_quickbook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:drawableStart="@drawable/ic_date_range_black_24dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:drawablePadding="9dp"
+                        android:textColor="@color/color_blue_grey_300"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textSize="@dimen/edittext_size_medium"
+                        android:text="@string/label_date_bookapt"
+                         />
+
+                    <TextView
+                        android:id="@+id/tv_date_error_quickbook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:textColor="@color/color_red_500"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:drawablePadding="9dp"
+                        android:textSize="11sp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/color_grey_600"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_marginTop="@dimen/margin_control"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/comtv_content_quickbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLength="2000"
+                    android:maxLines="6"
+                    android:textSize="@dimen/edittext_size_medium"
+                    android:imeOptions="actionDone"
+                    android:imeActionLabel="@string/label_button_bookapt"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:hint="@string/label_content_bookapt"
+                    android:minLines="4"
+                    android:drawablePadding="9dp"
+                    android:layout_gravity="top|left"
+                    android:drawableStart="@drawable/ic_event_note_black_24dp"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_quickbook"
+                style="@style/custom_button_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/label_button_bookapt" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

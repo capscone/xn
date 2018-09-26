@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="padding_page">16dp</dimen>
+    <dimen name="margin_control">16dp</dimen>
+    <dimen name="padding_control">16dp</dimen>
+
+    <dimen name="button_size_small">12dp</dimen>
+    <dimen name="button_size_medium">14dp</dimen>
+    <dimen name="button_size_big">16dp</dimen>
+
+    <dimen name="label_size_small">12dp</dimen>
+    <dimen name="label_size_medium">14dp</dimen>
+    <dimen name="label_size_big">16dp</dimen>
+    <dimen name="edittext_size_small">12dp</dimen>
+    <dimen name="edittext_size_medium">14dp</dimen>
+    <dimen name="edittext_size_big">16dp</dimen>
+
+
+</resources>
