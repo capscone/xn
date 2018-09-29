@@ -43,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract String getMainTitle();
 
+    public abstract void updateUIData(Object obj);
 
     public void showDialog(String message) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)

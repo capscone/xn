@@ -145,6 +145,11 @@ public class BookApptActivity extends BaseActivity {
     }
 
     @Override
+    public void updateUIData(Object obj) {
+
+    }
+
+    @Override
     public void onCancelLoading() {
         if (appointmentDisposable != null) {
             appointmentDisposable.dispose();

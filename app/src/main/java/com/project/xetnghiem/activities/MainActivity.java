@@ -17,4 +17,9 @@ public class MainActivity extends BaseActivity {
     public String getMainTitle() {
         return "Main ";
     }
+
+    @Override
+    public void updateUIData(Object obj) {
+
+    }
 }
