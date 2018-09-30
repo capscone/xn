@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.utilities.CoreManager;
+import com.project.xetnghiem.utilities.Validation;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,6 +46,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    public void bindView() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
 
     }
@@ -60,40 +66,29 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-//        getActionBar().hide();
-        // Set up the login form.
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.side_nav_bar));
-//        }
         txtPhone = findViewById(R.id.txt_phone_loginact);
         txtErrorServer = findViewById(R.id.txt_error_server_loginact);
         txtPassword = findViewById(R.id.password);
         tvLinkForgotPassword = findViewById(R.id.tv_link_forgot_password);
 
         mLoginFormView = findViewById(R.id.login_form);
-//        mProgressView = findViewById(R.id.login_progress);
+        tvLinkRegister = findViewById(R.id.tv_link_quickregister);
+        tvLinkRegister.setOnClickListener((v) -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
         btnSingin = findViewById(R.id.btn_signin_loginact);
         btnSingin.setOnClickListener((view) ->
         {
             attemptLogin();
 //            showLoading();
         });
-//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.dummy_focus_loginact);
-//        linearLayout.requestFocus();
         txtPassword.clearFocus();
         txtPhone.clearFocus();
 
     }
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void attemptLogin() {
         // Reset errors.
         txtErrorServer.setText("");
@@ -101,7 +96,7 @@ public class LoginActivity extends BaseActivity {
         txtPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String phone = txtPhone.getText().toString();
+        String username = txtPhone.getText().toString();
         String password = txtPassword.getText().toString();
 
         boolean cancel = false;
@@ -109,7 +104,7 @@ public class LoginActivity extends BaseActivity {
 
         // Check for a valid password, if the user entered one.
 
-        if (TextUtils.isEmpty(phone) && !isPhoneValid(phone)) {
+        if (!Validation.isUsernameValid(username)) {
             txtPhone.setError(getString(R.string.error_invalid_phone));
             focusView = txtPhone;
             cancel = true;
@@ -121,8 +116,9 @@ public class LoginActivity extends BaseActivity {
 
         if (cancel) {
             focusView.requestFocus();
+            showMessage("Số điện thoại hoặc email không hợp lệ!");
         } else {
-            callApiLogin(phone, password);
+            callApiLogin(username, password);
         }
     }
 
@@ -142,9 +138,14 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    public void callApiLogin(String phone, String password) {
-        showLoading();
+    public void callApiLogin(String username, String password) {
+        redirectToMain();
+    }
 
+    public void redirectToMain(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

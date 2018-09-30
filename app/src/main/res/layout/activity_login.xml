@@ -52,9 +52,8 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_phone_iphone_black_24dp"
-                        android:hint="@string/label_phone_bookappt"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:hint="@string/label_account"
+                        android:imeOptions="actionNext" 
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textSize="@dimen/edittext_size_medium" />
@@ -98,6 +97,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_button_login" />
 
+                <TextView
+                    android:id="@+id/tv_link_quickregister"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:autoLink="web"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:linksClickable="true"
+                    android:text="@string/label_suggest_register"
+                    android:textColor="@color/color_light_blue_a400" />
 
                 <TextView
                     android:id="@+id/tv_link_forgot_password"

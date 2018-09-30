@@ -145,6 +145,11 @@ public class BookApptActivity extends BaseActivity {
     }
 
     @Override
+    public void bindView() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
 
     }

@@ -1,6 +1,7 @@
 package com.project.xetnghiem.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -43,8 +44,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract String getMainTitle();
 
+    public abstract void bindView();
     public abstract void updateUIData(Object obj);
 
+    public void redirectToActivity(Class<?> tClass, boolean forceFinish) {
+        Intent intent = new Intent(this, tClass);
+        startActivity(intent);
+        if (forceFinish) {
+            finish();
+        }
+    }
     public void showDialog(String message) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
                 .setMessage(message)

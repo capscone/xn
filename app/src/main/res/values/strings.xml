@@ -3,6 +3,7 @@
 
     <!--Invalid -->
     <string name="error_invalid_phone">Số điện thoại không hợp lệ, bạn vui lòng thử lại</string>
+    <string name="error_invalid_username">Số điện thoại hoặc email không hợp lệ, bạn vui lòng thử lại</string>
     <string name="error_invalid_password">Mật khẩu không hợp lệ, bạn vui lòng thử lại</string>
     <string name="error_invalid_confirm_password">Mật khẩu nhập lại không hợp lệ</string>
     <string name="error_invalid_name">Tên không hợp lệ, bạn vui lòng thử lại</string>
@@ -25,9 +26,12 @@
     <string name="dialog_cancel">Bạn đã hủy</string>
     <string name="dialog_default_title">Thông báo</string>
     <string name="label_phone_bookappt">Số điện thoại</string>
+    <string name="label_email_bookappt">Email</string>
+    <string name="label_account">Số điện thoại hoặc email</string>
     <string name="label_fullname_quickbook">Tên</string>
     <string name="label_date_bookapt">Ngày hẹn</string>
     <string name="label_content_bookapt">Nội dung</string>
+    <string name="label_suggest_register">Bạn chưa có tài khoản? Đăng kí tại đây</string>
     <string name="label_button_bookapt">Đặt lịch</string>
     <string name="label_password">Mật khẩu</string>
     <string name="label_password_promt">Nhập mật khẩu</string>
@@ -46,6 +50,20 @@
     <string name="OK">Đồng ý</string>
     <string name="Cancel">Hủy</string>
 
+    <!-- My Accout fragment -->
+    <string name="my_acc_phone_label">Số điện thoại</string>
+    <string name="my_acc_password_label">Mật khẩu</string>
+    <string name="my_acc_password_text_view">**********</string>
+    <string name="my_acc_gender_label">Giới tính</string>
+    <string name="my_acc_address_label">Địa chỉ</string>
+    <string name="my_acc_birthday_label">Ngày sinh</string>
+    <string name="my_acc_edit_button">Chỉnh sửa tài khoản</string>
+    <string name="my_acc_district_text">Quận</string>
+    <string name="my_acc_city_text">Thành phố</string>
+    <string name="edit_pass_title">Chỉnh Sửa Mật Khẩu</string>
+    <!-- Edit Accout Activity -->
+    <string name="edit_acc_title">Chỉnh Sửa Tài Khoản</string>
+    <string name="edit_acc_update_button">Cập Nhật</string>
 
     <string name="label_content_feedback">Góp Ý</string>
     <string name="label_question_feedback">Bạn thấy dịch vụ của chúng tôi như thế nào?</string>

@@ -197,6 +197,11 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @Override
+    public void bindView() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
 
     }
