@@ -24,15 +24,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot"
             android:layout_margin="2dp"
             >
 
             <ImageView
                 android:id="@+id/img_bookappt_main"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 android:src="@drawable/ic_event_note_black_24dp" />
@@ -56,13 +56,13 @@
             android:gravity="center"
             android:layout_margin="2dp"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot">
 
             <ImageView
                 android:id="@+id/img_account_main"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 android:src="@drawable/ic_account_circle_black_24dp" />
@@ -95,15 +95,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot"
             android:layout_margin="2dp"
             >
 
             <ImageView
                 android:id="@+id/img_appt_history_main"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 android:src="@drawable/ic_history_black_24dp" />
@@ -127,13 +127,13 @@
             android:gravity="center"
             android:layout_margin="2dp"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot">
 
             <ImageView
                 android:id="@+id/img_result_main"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 android:src="@drawable/ic_insert_drive_file_black_24dp" />
@@ -166,15 +166,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot"
             android:layout_margin="2dp"
             >
 
             <ImageView
                 android:id="@+id/img_treat_history_main"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 android:src="@drawable/ic_book_black_24dp" />
@@ -197,13 +197,13 @@
             android:gravity="center"
             android:layout_margin="2dp"
             android:background="@color/color_main_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/grid_pdd_top_bot"
+            android:paddingBottom="@dimen/grid_pdd_top_bot">
 
             <ImageView
                 android:id="@+id/img_result_main2"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/icon_height"
                 android:layout_alignParentTop="true"
                 android:tint="@color/color_main_icon"
                 />

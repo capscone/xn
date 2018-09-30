@@ -3,6 +3,7 @@ package com.project.xetnghiem.activities;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.api.APIServiceManager;
@@ -39,11 +41,13 @@ public class BookApptActivity extends BaseActivity {
     private AutoCompleteTextView tvPhone;
     private AutoCompleteTextView tvFullname;
     private TextView tvDate;
+    private TextView tvTime;
+    private TextView tvPrice;
     private TextView tvDateError;
     private AutoCompleteTextView comtvNote;
     private Button btnQuickBook;
     private Disposable appointmentDisposable;
-//    private User user;
+    //    private User user;
 //    private Patient patient;
     private boolean isDateValid = true;
 
@@ -51,6 +55,7 @@ public class BookApptActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_register);
+        bindView();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -58,29 +63,20 @@ public class BookApptActivity extends BaseActivity {
                     ContextCompat.getDrawable(BookApptActivity.this, R.drawable.side_nav_bar)
             );
         }
-//        ImageView img = findViewById(R.id.img_logo_quick_register);
-        tvFullname = findViewById(R.id.tv_fullname_quickbook);
-        tvDate = findViewById(R.id.tv_date_quickbook);
-        tvDateError = findViewById(R.id.tv_date_error_quickbook);
-//        tvTime = findViewById(R.id.tv_time_quickbook);
-        tvPhone = findViewById(R.id.tv_phone_quickbook);
-        btnQuickBook = findViewById(R.id.btn_quickbook);
-        comtvNote = findViewById(R.id.comtv_content_quickbook);
-        TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        String mPhoneNumber = tMgr.getLine1Number();
-        tvPhone.setText(mPhoneNumber);
+//        TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//        String mPhoneNumber = tMgr.getLine1Number();
+//        tvPhone.setText(mPhoneNumber);
 //        img.requestFocus();
-        tvPhone.clearFocus();
 //        tvFullname.clearFocus();
 
 
@@ -88,27 +84,44 @@ public class BookApptActivity extends BaseActivity {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+        Calendar currentDay = Calendar.getInstance();
         tvDate.setOnClickListener((view) ->
         {
+            showMessage("date");
             DatePickerDialog dialog = new DatePickerDialog(this,
                     (DatePicker datePicker, int iYear, int iMonth, int iDay) -> {
                         String date = iDay + "/" + (iMonth + 1) + "/" + iYear;
-                        c.set(iYear, iMonth, iDay,23,59);
-                        Calendar currentDay = Calendar.getInstance();
+                        c.set(iYear, iMonth, iDay, 23, 59);
                         if (currentDay.after(c)) {
                             tvDateError.setText(getString(R.string.label_error_appnt_date));
-                            isDateValid= false;
+                            isDateValid = false;
                         } else {
                             tvDateError.setText("");
-                            isDateValid=true;
+                            isDateValid = true;
                         }
                         tvDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
                         tvDate.setTextColor(
                                 ContextCompat.getColor(BookApptActivity.this, R.color.color_black)
                         );
                     }, year, month, day);
-            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE,getString(R.string.OK), dialog);
-            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener)null);
+            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
+            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
+
+            dialog.show();
+        });
+        tvTime.setOnClickListener((v) -> {
+            showMessage("time");
+            TimePickerDialog dialog = new TimePickerDialog(BookApptActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                    String time = i + " : " + i1;
+                    tvTime.setText(time); tvTime.setTextColor(
+                            ContextCompat.getColor(BookApptActivity.this, R.color.color_black)
+                    );
+                }
+            }, currentDay.get(Calendar.HOUR_OF_DAY), currentDay.get(Calendar.MINUTE), true);
+            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
+            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
 
             dialog.show();
         });
@@ -146,6 +159,11 @@ public class BookApptActivity extends BaseActivity {
 
     @Override
     public void bindView() {
+        tvDate = findViewById(R.id.tv_date_quickbook);
+        tvDateError = findViewById(R.id.tv_date_error_quickbook);
+        tvTime = findViewById(R.id.tv_time_quickbook);
+        tvPrice = findViewById(R.id.tv_price);
+        btnQuickBook = findViewById(R.id.btn_quickbook);
 
     }
 
@@ -165,11 +183,11 @@ public class BookApptActivity extends BaseActivity {
 //        User user = CoreManager.getUser(this);
 //        if (user != null) {
 //            String phone = user.getPhone();
-        String phone =  tvPhone.getText().toString().trim();
+        String phone = tvPhone.getText().toString().trim();
         String dateBooking = tvDate.getText().toString().trim();
         String note = comtvNote.getText().toString().trim();
         String name = tvFullname.getText().toString().trim();
-        String bookingDate =DateUtils.changeDateFormat(
+        String bookingDate = DateUtils.changeDateFormat(
                 dateBooking,
                 DateTimeFormat.DATE_APP,
                 DateTimeFormat.DATE_TIME_DB);
@@ -194,7 +212,7 @@ public class BookApptActivity extends BaseActivity {
             tvPhone.setError(getString(R.string.error_invalid_phone));
             isAllFieldValid = false;
         } else if (Validation.isNullOrEmpty(txtDate)
-                || (txtDate!=null && txtDate.equals(getString(R.string.label_date_bookapt)))) {
+                || (txtDate != null && txtDate.equals(getString(R.string.label_date_bookapt)))) {
             viewFocus = tvDateError;
             tvDateError.setText("Vui lòng chọn ngày");
             isAllFieldValid = false;
@@ -258,7 +276,6 @@ public class BookApptActivity extends BaseActivity {
         finish();
         return true;
     }
-
 
 
 }

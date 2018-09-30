@@ -220,7 +220,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tiền sử bệnh" />
+                    android:text="Thông tin" />
 
                 <TextView
                     android:id="@+id/txt_list_anamnesis"

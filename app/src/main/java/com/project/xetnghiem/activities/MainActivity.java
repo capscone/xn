@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
         gridApptHistory.setOnClickListener((v)->{
             redirectToActivity(BookApptActivity.class, false);});
         gridResult.setOnClickListener((v)->{
-            redirectToActivity(BookApptActivity.class, false);});
+            redirectToActivity(FeedbackActivity.class, false);});
     }
 
     @Override

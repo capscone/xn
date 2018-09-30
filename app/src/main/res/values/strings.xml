@@ -30,6 +30,7 @@
     <string name="label_account">Số điện thoại hoặc email</string>
     <string name="label_fullname_quickbook">Tên</string>
     <string name="label_date_bookapt">Ngày hẹn</string>
+    <string name="label_time_bookapt">Thời gian</string>
     <string name="label_content_bookapt">Nội dung</string>
     <string name="label_suggest_register">Bạn chưa có tài khoản? Đăng kí tại đây</string>
     <string name="label_button_bookapt">Đặt lịch</string>
