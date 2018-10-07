@@ -18,13 +18,14 @@ public class Validation {
         if (isPhoneValid(username)) {
             return true;
         }
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(username);
-        if (matcher.matches()) {
-            return true;
-        } else {
-            return false;
-        }
+//        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+//        Matcher matcher = pattern.matcher(username);
+//        if (matcher.matches()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 
     public static boolean isPhoneValid(String phone) {

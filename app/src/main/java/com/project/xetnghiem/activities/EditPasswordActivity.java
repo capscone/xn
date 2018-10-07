@@ -3,6 +3,7 @@ package com.project.xetnghiem.activities;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,16 +25,13 @@ public class EditPasswordActivity extends BaseActivity implements View.OnClickLi
     private Button btnChangePassword;
 
     @Override
+    protected int getLayoutView() {
+        return R.layout.activity_edit_password;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_password);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(
-                    ContextCompat.getDrawable(this, R.drawable.side_nav_bar)
-            );
-        }
         Bundle bundle = getIntent().getBundleExtra(AppConst.BUNDLE);
         if (bundle.getSerializable(AppConst.PATIENT_OBJ) != null) {
             patient = (Patient) bundle.getSerializable(AppConst.PATIENT_OBJ);
@@ -41,11 +39,6 @@ public class EditPasswordActivity extends BaseActivity implements View.OnClickLi
             patient = new Patient();
             patient.setId(-1);
         }
-        txtPassword = findViewById(R.id.edt_password);
-        txtCurrentPassword = findViewById(R.id.edt_current_password);
-        txtConfirmPassword = findViewById(R.id.edt_confirm_password);
-        btnChangePassword = findViewById(R.id.btn_update_password);
-        btnChangePassword.setOnClickListener(this);
 
     }
 
@@ -56,6 +49,11 @@ public class EditPasswordActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void bindView() {
+        txtPassword = findViewById(R.id.edt_password);
+        txtCurrentPassword = findViewById(R.id.edt_current_password);
+        txtConfirmPassword = findViewById(R.id.edt_confirm_password);
+        btnChangePassword = findViewById(R.id.btn_update_password);
+        btnChangePassword.setOnClickListener(this);
 
     }
 

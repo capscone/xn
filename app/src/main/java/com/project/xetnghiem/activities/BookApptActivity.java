@@ -52,17 +52,20 @@ public class BookApptActivity extends BaseActivity {
     private boolean isDateValid = true;
 
     @Override
+    protected int getLayoutView() {
+        return R.layout.activity_quick_register;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quick_register);
-        bindView();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(
-                    ContextCompat.getDrawable(BookApptActivity.this, R.drawable.side_nav_bar)
-            );
-        }
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setBackgroundDrawable(
+//                    ContextCompat.getDrawable(BookApptActivity.this, R.drawable.side_nav_bar)
+//            );
+//        }
 //        TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 //            // TODO: Consider calling
@@ -183,7 +186,7 @@ public class BookApptActivity extends BaseActivity {
 //        User user = CoreManager.getUser(this);
 //        if (user != null) {
 //            String phone = user.getPhone();
-        String phone = tvPhone.getText().toString().trim();
+//        String phone = tvPhone.getText().toString().trim();
         String dateBooking = tvDate.getText().toString().trim();
         String note = comtvNote.getText().toString().trim();
         String name = tvFullname.getText().toString().trim();
@@ -195,7 +198,7 @@ public class BookApptActivity extends BaseActivity {
         request.setDate(bookingDate);
         request.setNote(note);
         request.setFullname(name);
-        request.setPhone(phone);
+//        request.setPhone(phone);
         return request;
 //        }
 //        return null;
@@ -203,15 +206,11 @@ public class BookApptActivity extends BaseActivity {
 
     public boolean isValidateForm() {
         boolean isAllFieldValid = true;
-        String phone = tvPhone.getText().toString().trim();
-        String note = comtvNote.getText().toString().trim();
+//        String phone = tvPhone.getText().toString().trim();
+//        String note = comtvNote.getText().toString().trim();
         String txtDate = tvDate.getText().toString().trim();
         View viewFocus = null;
-        if (!Validation.isPhoneValid(phone)) {
-            viewFocus = tvPhone;
-            tvPhone.setError(getString(R.string.error_invalid_phone));
-            isAllFieldValid = false;
-        } else if (Validation.isNullOrEmpty(txtDate)
+        if (Validation.isNullOrEmpty(txtDate)
                 || (txtDate != null && txtDate.equals(getString(R.string.label_date_bookapt)))) {
             viewFocus = tvDateError;
             tvDateError.setText("Vui lòng chọn ngày");

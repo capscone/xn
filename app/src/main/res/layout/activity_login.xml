@@ -1,6 +1,17 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+<ScrollView
     android:id="@+id/login_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +19,6 @@
     android:fillViewport="true"
     tools:context=".activities.LoginActivity">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_margin="20dp"
-        app:cardCornerRadius="10dp">
 
         <!-- Login progress -->
 
@@ -35,13 +39,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:background="@drawable/common_google_signin_btn_icon_dark"/>
-                <ImageView
-                    android:layout_width="180dp"
-                    android:layout_marginTop="@dimen/margin_control"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/common_google_signin_btn_icon_dark_focused"/>
-                <android.support.design.widget.TextInputLayout
+                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
@@ -127,5 +125,5 @@
                     android:textColor="@color/color_light_blue_a400" />
             </LinearLayout>
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
 </ScrollView>
+</LinearLayout>

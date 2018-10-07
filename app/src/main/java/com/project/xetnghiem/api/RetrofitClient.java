@@ -18,9 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit = null;
-    private static String baseUrl = "http://150.95.104.237";
+//    private static String baseUrl = "http://150.95.104.237";
     private static String accessToken = "null";
 //    private static String baseUrl = "http://10.0.2.2:8000";
+    private static String baseUrl = "http://10.0.2.2:52406";
 
     public static Retrofit getClient() {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
@@ -30,7 +31,7 @@ public class RetrofitClient {
         clientBuilder.addInterceptor((chain) -> {
                     Request original = chain.request();
                     Request.Builder reqBuilder = original.newBuilder()
-                            .addHeader("Authorization", "Bearer " + accessToken)
+//                            .addHeader("Authorization", "Bearer " + accessToken)
                             //localhost+
 //                            .addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVkZTUxYTExOTVhZWNjZDg5Y2Q2OWQyNmY2N2Y4NTNmN2RlODBmYWMxNGE4OWE0YjRmZjVkYTZhMjg1M2Q3ZTc3OTkzZDBiZWUxMzFiMjZhIn0.eyJhdWQiOiIzIiwianRpIjoiNWRlNTFhMTE5NWFlY2NkODljZDY5ZDI2ZjY3Zjg1M2Y3ZGU4MGZhYzE0YTg5YTRiNGZmNWRhNmEyODUzZDdlNzc5OTNkMGJlZTEzMWIyNmEiLCJpYXQiOjE1MzI3ODAyNjYsIm5iZiI6MTUzMjc4MDI2NiwiZXhwIjoxNTY0MzE2MjY2LCJzdWIiOiIwMTI3OTAxMTA5NyIsInNjb3BlcyI6W119.OaUoJ9BUNwCeRXy3DHW-0VF_Pn5Beq9fmkV2zRSsOsBS_Bbx5iYlmBUDzpM0upxHvu0GIO4Om2d-JXrima0hdiugI7AtWT3QN0Bpt7Jsi2-_F5PQgqvynC3OwPIdIT8XnruO3lGSp42KiIBwhStddRc4cS8WZ9QqI7rVxMMsS3_VQ_2heRGsaHO4JpQ-CgxZLYou8Y5WdUgVlHEed2gPPB8lysyMJesc_KycBTBZ_czxOk-J0BXdY_7aIfot0jC4Fggv3sBaL-LsxMvlR3D4qBDOL1PP_aK803ZOzA2xAmwmktELaQ6pUB-KOs3hcspH19jJAEcXfqeZPvBcoqsb17wsxFG-rglAqLQ48z2LRuHaH0quGpBSnO2DNp9dZmM4juGczHO99uGd3Q64ZBf9TIWeA85TouRnmGj-cEHa15zn807WnNK3-JbWNUYcreU_XY4iS7OF0iy2mxEbFjMlhWdt4Vb1rH_RLiK6hRGjq95d-c-vyipP4aetA-boeFy8moeWhHfQDZVtOeSs_kcNJryoqRX4s1iKzr4D7zN3bLm607ipuay23MMOL_neVriU363WD55Hv-aWXxp8RJTpq1NDwUj8zw6JMhqeYq9SuHjJFomeB53iC3oqh-YXRQoq_q1IBT5DoV3SJPXZEXEjbW9UCHjqg7cN54xKwylmhNw")
                             //server

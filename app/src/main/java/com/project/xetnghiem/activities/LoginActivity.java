@@ -2,22 +2,23 @@ package com.project.xetnghiem.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.project.xetnghiem.R;
-import com.project.xetnghiem.utilities.CoreManager;
+import com.project.xetnghiem.api.APIServiceManager;
+import com.project.xetnghiem.api.services.PatientService;
 import com.project.xetnghiem.utilities.Validation;
 
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 //import com.dentalclinic.capstone.firebase.FirebaseDataReceiver;
@@ -47,7 +48,13 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void bindView() {
-
+        txtPhone = findViewById(R.id.txt_phone_loginact);
+        txtErrorServer = findViewById(R.id.txt_error_server_loginact);
+        txtPassword = findViewById(R.id.password);
+        tvLinkForgotPassword = findViewById(R.id.tv_link_forgot_password);
+        mLoginFormView = findViewById(R.id.login_form);
+        btnSingin = findViewById(R.id.btn_signin_loginact);
+        tvLinkRegister = findViewById(R.id.tv_link_quickregister);
     }
 
     @Override
@@ -63,21 +70,23 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    protected int getLayoutView() {
+        return R.layout.activity_login;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        txtPhone = findViewById(R.id.txt_phone_loginact);
-        txtErrorServer = findViewById(R.id.txt_error_server_loginact);
-        txtPassword = findViewById(R.id.password);
-        tvLinkForgotPassword = findViewById(R.id.tv_link_forgot_password);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        tvLinkRegister = findViewById(R.id.tv_link_quickregister);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageButton backBtn = toolbar.findViewById(R.id.btn_toolbar_back);
+        CircleImageView cicleAvatar = toolbar.findViewById(R.id.imgAvatar);
+        backBtn.setVisibility(View.INVISIBLE);
+        cicleAvatar.setVisibility(View.INVISIBLE);
         tvLinkRegister.setOnClickListener((v) -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
-        btnSingin = findViewById(R.id.btn_signin_loginact);
         btnSingin.setOnClickListener((view) ->
         {
             attemptLogin();
@@ -85,7 +94,18 @@ public class LoginActivity extends BaseActivity {
         });
         txtPassword.clearFocus();
         txtPhone.clearFocus();
+        PatientService patientService = APIServiceManager.getService(PatientService.class);
+        patientService.test().enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                logInfo("Method:", response.body());
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
 

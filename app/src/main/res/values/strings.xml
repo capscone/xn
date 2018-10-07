@@ -59,6 +59,7 @@
     <string name="my_acc_address_label">Địa chỉ</string>
     <string name="my_acc_birthday_label">Ngày sinh</string>
     <string name="my_acc_edit_button">Chỉnh sửa tài khoản</string>
+    <string name="my_acc_logout_button">Đăng xuất</string>
     <string name="my_acc_district_text">Quận</string>
     <string name="my_acc_city_text">Thành phố</string>
     <string name="edit_pass_title">Chỉnh Sửa Mật Khẩu</string>

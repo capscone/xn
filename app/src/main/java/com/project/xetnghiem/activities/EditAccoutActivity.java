@@ -54,14 +54,13 @@ public class EditAccoutActivity extends BaseActivity implements View.OnClickList
     private DistrictSpinnerAdapter districtSpinnerAdapter;
 
     @Override
+    protected int getLayoutView() {
+        return R.layout.activity_edit_accout;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_accout);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.side_nav_bar));
-        }
         Bundle bundle = getIntent().getBundleExtra(AppConst.BUNDLE);
 
         if (bundle.getSerializable(AppConst.PATIENT_OBJ) != null) {

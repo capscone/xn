@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp" >
-
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_page">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!--<ImageView-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--<ImageView-->
                 <!--android:id="@+id/img_logo_quick_register"-->
                 <!--android:layout_width="130dp"-->
                 <!--android:layout_height="130dp"-->
@@ -27,7 +34,7 @@
                 <!--android:focusableInTouchMode="true"-->
                 <!--android:src="@drawable/dental_icon" />-->
 
-            <!--<TextView-->
+                <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:gravity="center"-->
@@ -36,145 +43,151 @@
                 <!--android:textColor="@color/color_black"-->
                 <!--android:layout_marginTop="20dp"-->
                 <!--/>--><LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_control"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_search_black_24dp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:drawablePadding="9dp"
-                    android:text="Loại xét nghiệm" />
-
-                <Button
-                    android:id="@+id/btn_list_treatmentstep"
-                    style="@style/custom_button_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="Chọn" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/lbl_testing_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text=""
-                android:textColor="@color/color_black" />
-        </LinearLayout>
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:visibility="invisible"
-                android:drawableStart="@drawable/ic_attach_money_black_24dp"
-                android:hint="Giá tiền"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="15dp" />
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_control"
-                android:layoutDirection="ltr"
-                android:weightSum="100"
-                android:paddingTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_search_black_24dp"
+                        android:drawablePadding="9dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="Loại xét nghiệm" />
+
+                    <Button
+                        android:id="@+id/btn_list_treatmentstep"
+                        style="@style/custom_button_blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Chọn" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lbl_testing_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text=""
+                    android:textColor="@color/color_black" />
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_attach_money_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:hint="Giá tiền"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_control"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:weightSum="100">
+
                     <TextView
                         android:id="@+id/tv_date_quickbook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
+                        android:clickable="true"
                         android:drawableStart="@drawable/ic_date_range_black_24dp"
+                        android:drawablePadding="9dp"
+                        android:focusable="true"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:drawablePadding="9dp"
-                        android:textColor="@color/color_blue_grey_300"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:textSize="@dimen/edittext_size_medium"
                         android:text="@string/label_date_bookapt"
-                         />
+                        android:textColor="@color/color_blue_grey_300"
+                        android:textSize="@dimen/edittext_size_medium" />
 
                     <TextView
                         android:id="@+id/tv_date_error_quickbook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="70"
-                        android:textColor="@color/color_red_500"
                         android:clickable="true"
-                        android:focusable="true"
                         android:drawablePadding="9dp"
+                        android:focusable="true"
+                        android:textColor="@color/color_red_500"
                         android:textSize="11sp" />
 
-            </LinearLayout> <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_control"
-                android:layoutDirection="ltr"
-                android:weightSum="100"
-                android:paddingTop="20dp"
-                android:orientation="horizontal">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_control"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:weightSum="100">
+
                     <TextView
                         android:id="@+id/tv_time_quickbook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
+                        android:clickable="true"
                         android:drawableStart="@drawable/ic_access_time_black_24dp"
+                        android:drawablePadding="9dp"
+                        android:focusable="true"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:drawablePadding="9dp"
-                        android:textColor="@color/color_blue_grey_300"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:textSize="@dimen/edittext_size_medium"
                         android:text="@string/label_time_bookapt"
-                         />
+                        android:textColor="@color/color_blue_grey_300"
+                        android:textSize="@dimen/edittext_size_medium" />
 
                     <TextView
                         android:id="@+id/tv_time_error_quickbook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="70"
-                        android:textColor="@color/color_red_500"
                         android:clickable="true"
-                        android:focusable="true"
                         android:drawablePadding="9dp"
+                        android:focusable="true"
+                        android:textColor="@color/color_red_500"
                         android:textSize="11sp" />
 
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@color/color_grey_600" />
+
+                <Button
+                    android:id="@+id/btn_quickbook"
+                    style="@style/custom_button_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/label_button_bookapt" />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="3dp"
-                android:background="@color/color_grey_600"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"
-                />
 
-            <Button
-                android:id="@+id/btn_quickbook"
-                style="@style/custom_button_blue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:text="@string/label_button_bookapt" />
+
         </LinearLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

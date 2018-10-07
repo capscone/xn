@@ -46,22 +46,19 @@ import retrofit2.Response;
 
 public class AccountActivity extends BaseActivity implements View.OnClickListener {
     public static int REQUEST_CHANGE_PASSWORD = 10000;
-    Button btnChangeAvatar, btnEdit, btnChangePhone, btnChangePassword;
+    Button btnChangeAvatar, btnEdit, btnLogout, btnChangePhone, btnChangePassword;
     CircleImageView cvAvatar;
     TextView txtName, txtGender, txtPhone, txtAddress, txtDateOfBirth, txtAnamnesis;
     Patient patient;
+
+    @Override
+    protected int getLayoutView() {
+        return R.layout.activity_account;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
-        bindView();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(
-                    ContextCompat.getDrawable(AccountActivity.this, R.drawable.side_nav_bar)
-            );
-        }
     }
 
     @Override
@@ -71,21 +68,23 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void bindView() {
-        btnChangeAvatar =  findViewById(R.id.btn_change_avatar);
+        btnChangeAvatar = findViewById(R.id.btn_change_avatar);
         btnChangeAvatar.setOnClickListener(this);
-        btnEdit =  findViewById(R.id.btn_edit_accout);
+        btnEdit = findViewById(R.id.btn_edit_accout);
+        btnLogout = findViewById(R.id.btn_logout);
         btnEdit.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
 //        btnChangePhone =  findViewById(R.id.btn_edit_phone);
 //        btnChangePhone.setOnClickListener(this);
-        btnChangePassword =  findViewById(R.id.btn_edit_password);
+        btnChangePassword = findViewById(R.id.btn_edit_password);
         btnChangePassword.setOnClickListener(this);
-        cvAvatar =  findViewById(R.id.img_avatar_user);
-        txtName =  findViewById(R.id.txt_name);
-        txtDateOfBirth =  findViewById(R.id.txt_date_of_birth);
-        txtGender =  findViewById(R.id.txt_gender);
-        txtPhone =  findViewById(R.id.txt_phone);
-        txtAddress =  findViewById(R.id.txt_address);
-        txtAnamnesis =  findViewById(R.id.txt_list_anamnesis);
+        cvAvatar = findViewById(R.id.img_avatar_user);
+        txtName = findViewById(R.id.txt_name);
+        txtDateOfBirth = findViewById(R.id.txt_date_of_birth);
+        txtGender = findViewById(R.id.txt_gender);
+        txtPhone = findViewById(R.id.txt_phone);
+        txtAddress = findViewById(R.id.txt_address);
+        txtAnamnesis = findViewById(R.id.txt_list_anamnesis);
 //        prepareData();
 //        if(CoreManager.getUser(getContext()).getPatients()==null|| CoreManager.getUser(getContext()).getPatients().isEmpty()){
 //            callApiCheck(CoreManager.getUser(getContext()).getPhone());
@@ -202,7 +201,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_change_avatar:
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1, 1)
-                        .start(AccountActivity.this );
+                        .start(AccountActivity.this);
                 break;
             case R.id.btn_edit_accout:
                 intent = new Intent(this, EditAccoutActivity.class);
@@ -211,8 +210,12 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
                 intent.putExtra(AppConst.BUNDLE, bundle);
                 startActivityForResult(intent, REQUEST_CHANGE_PASSWORD);
                 break;
+            case R.id.btn_logout:
+                clearPatient();
+                redirectToActivity(LoginActivity.class, true);
+                break;
             case R.id.btn_edit_password:
-                intent = new Intent(this , EditPasswordActivity.class);
+                intent = new Intent(this, EditPasswordActivity.class);
                 bundle = new Bundle();
 //                bundle.putSerializable(AppConst.PATIENT_OBJ, CoreManager.getCurrentPatient(getContext()));
                 intent.putExtra(AppConst.BUNDLE, bundle);
@@ -229,7 +232,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 try {
-                    InputStream is =  getContentResolver().openInputStream(resultUri);
+                    InputStream is = getContentResolver().openInputStream(resultUri);
                     showLoading();
                     uploadImage(getBytes(is));
                 } catch (IOException e) {
@@ -242,12 +245,14 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
                         Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == REQUEST_CHANGE_PASSWORD) {
-            if (resultCode ==  RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 //                setData(CoreManager.getCurrentPatient(getContext()));
             }
         }
     }
+
     private Disposable disposable;
+
     public void callApiCheck(String phone) {
 
     }

@@ -5,8 +5,10 @@ import com.project.xetnghiem.api.responseObj.SuccessResponse;
 
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -19,5 +21,7 @@ Single<Response<SuccessResponse>> changePatientInfo(@Body UpdatePatientRequest r
     Single<Response<SuccessResponse>> changeAvatar(
             @Part MultipartBody.Part image,
             @Part MultipartBody.Part id);
+        @GET("/WareHouse/Supplies")
+        Call<String> test();
 
 }

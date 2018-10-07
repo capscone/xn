@@ -50,9 +50,13 @@ public class RegisterActivity extends BaseActivity {
 
 
     @Override
+    protected int getLayoutView() {
+        return R.layout.activity_register;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
 //        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 //        getActionBar().hide();
         edtFullname = findViewById(R.id.edt_fullname_register);
