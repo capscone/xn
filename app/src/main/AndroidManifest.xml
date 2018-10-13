@@ -17,11 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity" >
+
            </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
         <activity android:name=".activities.FeedbackActivity" />
-        <activity android:name=".activities.BookApptActivity" />
+        <activity android:name=".activities.BookApptActivity">     <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.EditAccoutActivity" />
         <activity android:name=".activities.EditPasswordActivity" />
@@ -44,11 +49,7 @@
         <activity
             android:name=".activities.AppointmentListActivity"
             android:label="@string/title_activity_appointment_list"
-            android:theme="@style/AppTheme"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

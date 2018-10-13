@@ -21,15 +21,19 @@ import android.widget.TimePicker;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.api.APIServiceManager;
+import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.AppointmentRequest;
 import com.project.xetnghiem.api.responseObj.SuccessResponse;
+import com.project.xetnghiem.api.services.SampleService;
 import com.project.xetnghiem.api.services.UserService;
+import com.project.xetnghiem.models.SampleDto;
 import com.project.xetnghiem.utilities.CoreManager;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Validation;
 
 import java.util.Calendar;
+import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -172,12 +176,35 @@ public class BookApptActivity extends BaseActivity {
 
     @Override
     public void callDataResource() {
+        SampleService sampleService = APIServiceManager.getService(SampleService.class);
+        sampleService.getAllSample().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MySingleObserver<List<SampleDto>>(this) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        apiDisposable = d;
+                    }
 
+                    @Override
+                    protected void onResponseSuccess(Response<List<SampleDto>> sampleDtoResponse) {
+                        List<SampleDto> lst = sampleDtoResponse.body();
+                        int a = 1;
+                    }
+                });
     }
 
     @Override
     public void updateUIData(Object obj) {
 
+    }
+private Disposable apiDisposable
+        ;
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (apiDisposable != null) {
+            apiDisposable.dispose();
+        }
     }
 
     @Override

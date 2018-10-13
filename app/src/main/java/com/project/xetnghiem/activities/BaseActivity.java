@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         TextView txtTitle = toolbar.findViewById(R.id.txt_title_toolbar);
         txtTitle.setText(getMainTitle());
         btnAvatar.setOnClickListener((v) -> {
-            redirectToActivity(AccountActivity.class, false);
+            redirectToActivityWithTop(AccountActivity.class, false);
         });
         btnBack = toolbar.findViewById(R.id.btn_toolbar_back);
         btnBack.setOnClickListener((v) -> {
@@ -90,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
                 logInfo("SetToolbar method", this.getClass().getSimpleName());
             } else {
                 btnNotification.setEnabled(false);
-                redirectToActivity(ResultActivity.class, false);
+                redirectToActivityWithTop(ResultActivity.class, false);
                 clearNotiNumber();
                 hideNotiNumber();
                 logInfo("SetToolbar method", this.getClass().getSimpleName());
@@ -174,6 +174,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     public void redirectToActivity(Class<?> tClass, boolean forceFinish) {
         Intent intent = new Intent(this, tClass);
+        startActivity(intent);
+        if (forceFinish) {
+            finish();
+        }
+    } public void redirectToActivityWithTop(Class<?> tClass, boolean forceFinish) {
+        Intent intent = new Intent(this, tClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         if (forceFinish) {
             finish();
