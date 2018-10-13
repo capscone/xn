@@ -94,6 +94,11 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
+    public void callDataResource() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
         Patient patient = (Patient) obj;
         setData(patient);

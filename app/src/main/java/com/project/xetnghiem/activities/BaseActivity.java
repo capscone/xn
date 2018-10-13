@@ -1,6 +1,7 @@
 package com.project.xetnghiem.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.api.responseObj.ErrorResponse;
+import com.project.xetnghiem.models.BaseContext;
 import com.project.xetnghiem.models.Patient;
 import com.project.xetnghiem.utilities.AppConst;
 import com.project.xetnghiem.utilities.CoreManager;
@@ -29,7 +31,7 @@ import java.net.InetAddress;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseContext {
     private ProgressDialog progressDialog;
     private static int numNotification = 0;
 
@@ -60,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutView());
         bindView();
         initToolbar();
+        callDataResource();
     }
 
     private void initToolbar() {
@@ -99,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             btnAvatar.setVisibility(View.VISIBLE);
         }
-        if (this instanceof LoginActivity || this instanceof RegisterActivity) {
+        if (this instanceof LoginActivity || this instanceof RegisterActivity || this instanceof ResultActivity) {
             btnNotification.setVisibility(View.INVISIBLE);
             hideNotiNumber();
         } else {
@@ -119,8 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (btnNotification != null) {
             btnNotification.setEnabled(true);
         }
-        if (btnBack != null
-                ) {
+        if (btnBack != null) {
             btnBack.setEnabled(true);
 
         }
@@ -165,7 +167,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract String getMainTitle();
 
     public abstract void bindView();
+    protected void callDataResource(){
 
+    }
     public abstract void updateUIData(Object obj);
 
     public void redirectToActivity(Class<?> tClass, boolean forceFinish) {
@@ -292,5 +296,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Context getContextBase() {
+        return this;
     }
 }

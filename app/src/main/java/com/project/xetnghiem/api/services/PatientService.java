@@ -12,6 +12,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PatientService {
     @POST("api/patient/update")
@@ -23,5 +25,4 @@ Single<Response<SuccessResponse>> changePatientInfo(@Body UpdatePatientRequest r
             @Part MultipartBody.Part id);
         @GET("/WareHouse/Supplies")
         Call<String> test();
-
 }

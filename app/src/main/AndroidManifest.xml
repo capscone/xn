@@ -16,13 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.MainActivity" >
+           </activity>
         <activity android:name=".activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.FeedbackActivity" />
         <activity android:name=".activities.BookApptActivity" />
@@ -44,7 +40,15 @@
         <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.ResultHistoryActivity" />
-        <activity android:name=".activities.AppointmentActivity"></activity>
+        <activity android:name=".activities.AppointmentActivity" />
+        <activity
+            android:name=".activities.AppointmentListActivity"
+            android:label="@string/title_activity_appointment_list"
+            android:theme="@style/AppTheme"> <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
     </application>
 
 </manifest>

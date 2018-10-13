@@ -2,44 +2,27 @@ package com.project.xetnghiem.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Appointment {
-    @SerializedName("StartTime")
-    private String startTime;
-    @SerializedName("SampleType")
-    private String sampleType;
-    @SerializedName("FinishTime")
-    private String finishTime;
+    @SerializedName("AppointmentCode")
+    private int id;
+    @SerializedName("SampleGettingDtos")
+    private List<AppointmentDetail> listApptDetail;
 
-    public Appointment() {
+    public int getId() {
+        return id;
     }
 
-    public Appointment(String startTime, String sampleType, String finishTime) {
-        this.startTime = startTime;
-        this.sampleType = sampleType;
-        this.finishTime = finishTime;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public List<AppointmentDetail> getListApptDetail() {
+        return listApptDetail;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getSampleType() {
-        return sampleType;
-    }
-
-    public void setSampleType(String sampleType) {
-        this.sampleType = sampleType;
-    }
-
-    public String getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(String finishTime) {
-        this.finishTime = finishTime;
+    public void setListApptDetail(List<AppointmentDetail> listApptDetail) {
+        this.listApptDetail = listApptDetail;
     }
 }

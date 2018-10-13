@@ -171,6 +171,11 @@ public class BookApptActivity extends BaseActivity {
     }
 
     @Override
+    public void callDataResource() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
 
     }

@@ -15,6 +15,13 @@ public enum DateTimeFormat {
                 public String toString() {
                     return "yyyy-MM-dd";
                 }
+            }, /**
+     * yyyy-MM-dd'T'HH:mm:ss
+     */
+    DATE_TIME_DB_3 {
+                public String toString() {
+                    return "yyyy-MM-dd'T'HH:mm:ss";
+                }
             },
     /**
      * h:mm a dd-MM-yyyy

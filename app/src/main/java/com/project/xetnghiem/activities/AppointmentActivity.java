@@ -41,20 +41,25 @@ private List<Appointment> appointmentList;
     }
 
     @Override
+    public void callDataResource() {
+
+    }
+
+    @Override
     public void updateUIData(Object obj) {
         appointmentList = new ArrayList<>();
-        appointmentList.add(new Appointment("time 1", "type 1", "finish"));
-        appointmentList.add(new Appointment("time 2", "type 2", "finish"));
-        appointmentList.add(new Appointment("time 3", "type 3", "finish"));
-        appointmentList.add(new Appointment("time 4", "type 4 ", "finish"));
-        appointmentList.add(new Appointment("time 5", "type 5", "finish"));
-        appointmentList.add(new Appointment("time 6", "type 6", "finish"));
-        if (appointmentAdapter == null) {
-            appointmentAdapter = new AppointmentAdapter(this, appointmentList);
-            rcvAppointment.setAdapter(appointmentAdapter);
-
-        }else {
-            appointmentAdapter.notifyDataSetChanged();
-        }
+//        appointmentList.add(new Appointment("time 1", "type 1", "finish"));
+//        appointmentList.add(new Appointment("time 2", "type 2", "finish"));
+//        appointmentList.add(new Appointment("time 3", "type 3", "finish"));
+//        appointmentList.add(new Appointment("time 4", "type 4 ", "finish"));
+//        appointmentList.add(new Appointment("time 5", "type 5", "finish"));
+//        appointmentList.add(new Appointment("time 6", "type 6", "finish"));
+//        if (appointmentAdapter == null) {
+//            appointmentAdapter = new AppointmentAdapter(this, appointmentList);
+//            rcvAppointment.setAdapter(appointmentAdapter);
+//
+//        }else {
+//            appointmentAdapter.notifyDataSetChanged();
+//        }
     }
 }

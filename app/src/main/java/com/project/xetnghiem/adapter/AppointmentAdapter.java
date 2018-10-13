@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.models.Appointment;
+import com.project.xetnghiem.models.AppointmentDetail;
 
 import java.util.List;
 
@@ -32,11 +34,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Appointment appointment = appointments.get(position);
         if (appointment != null) {
-            String startTime = appointment.getStartTime();
-            String sampleType = appointment.getSampleType();
-            holder.txtSampleType.setText(sampleType);
-            holder.txtStartTime.setText(startTime);
-
+            AppointmentDetailAdapter adapter = new AppointmentDetailAdapter(appointment.getListApptDetail(), context);
+            holder.listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -47,10 +47,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtSampleType, txtStartTime, txtFinishDate;
+        ListView listView;
         public MyViewHolder(View itemView) {
             super(itemView);
-            txtSampleType = itemView.findViewById(R.id.txt_sample_type);
-            txtStartTime = itemView.findViewById(R.id.txt_start_time);
+            listView = itemView.findViewById(R.id.list_view_apointment);
 //            txtFinishDate = itemView.findViewById(R.id.txt_fin)
         }
     }
