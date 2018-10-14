@@ -8,8 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -20,18 +25,25 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.project.xetnghiem.R;
+import com.project.xetnghiem.adapter.CustomViewPager;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.AppointmentRequest;
 import com.project.xetnghiem.api.responseObj.SuccessResponse;
 import com.project.xetnghiem.api.services.SampleService;
 import com.project.xetnghiem.api.services.UserService;
+import com.project.xetnghiem.fragment.BookStep1Fragment;
+import com.project.xetnghiem.fragment.BookStep2Fragment;
+import com.project.xetnghiem.fragment.NewAppointmentFragment;
+import com.project.xetnghiem.fragment.OldAppointmentFragment;
+import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
 import com.project.xetnghiem.utilities.CoreManager;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Validation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,20 +53,16 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class BookApptActivity extends BaseActivity {
-    private AutoCompleteTextView tvPhone;
-    private AutoCompleteTextView tvFullname;
-    private TextView tvDate;
-    private TextView tvTime;
-    private TextView tvPrice;
-    private TextView tvDateError;
-    private AutoCompleteTextView comtvNote;
-    private Button btnQuickBook;
+public class BookApptActivity extends BaseActivity implements BookStep1Fragment.DataListener {
+
     private Disposable appointmentDisposable;
     //    private User user;
 //    private Patient patient;
     private boolean isDateValid = true;
-
+    private CustomViewPager viewPager;
+    private List<LabTest> tmpLabTest;
+    private List<SampleDto> listTmpSampleDto;
+private  Button btnNextStep;
     @Override
     protected int getLayoutView() {
         return R.layout.activity_quick_register;
@@ -86,76 +94,8 @@ public class BookApptActivity extends BaseActivity {
 //        img.requestFocus();
 //        tvFullname.clearFocus();
 
-
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        Calendar currentDay = Calendar.getInstance();
-        tvDate.setOnClickListener((view) ->
-        {
-            showMessage("date");
-            DatePickerDialog dialog = new DatePickerDialog(this,
-                    (DatePicker datePicker, int iYear, int iMonth, int iDay) -> {
-                        String date = iDay + "/" + (iMonth + 1) + "/" + iYear;
-                        c.set(iYear, iMonth, iDay, 23, 59);
-                        if (currentDay.after(c)) {
-                            tvDateError.setText(getString(R.string.label_error_appnt_date));
-                            isDateValid = false;
-                        } else {
-                            tvDateError.setText("");
-                            isDateValid = true;
-                        }
-                        tvDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
-                        tvDate.setTextColor(
-                                ContextCompat.getColor(BookApptActivity.this, R.color.color_black)
-                        );
-                    }, year, month, day);
-            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
-            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
-
-            dialog.show();
-        });
-        tvTime.setOnClickListener((v) -> {
-            showMessage("time");
-            TimePickerDialog dialog = new TimePickerDialog(BookApptActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                    String time = i + " : " + i1;
-                    tvTime.setText(time); tvTime.setTextColor(
-                            ContextCompat.getColor(BookApptActivity.this, R.color.color_black)
-                    );
-                }
-            }, currentDay.get(Calendar.HOUR_OF_DAY), currentDay.get(Calendar.MINUTE), true);
-            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
-            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
-
-            dialog.show();
-        });
-//        if(CoreManager.getCurrentPatient(BookApptActivity.this)!=null){
-//            patient= CoreManager.getCurrentPatient(BookApptActivity.this);
-//            if(patient.getPhone()!=null){
-//                tvPhone.setText(patient.getPhone());
-//            }
-//            if(patient.getName()!=null){
-//                tvFullname.setText(patient.getName());
-//
-//            }
-//        }
-
-        btnQuickBook.setOnClickListener((view) -> {
-            if (isValidateForm()) {
-                AppointmentRequest requestObj = getFormData();
-                if (requestObj != null) {
-                    callApi(requestObj);
-                } else {
-                    showWarningMessage("Error null");
-                }
-            }
-
-//            Intent intent = new Intent(BookApptActivity.this, SelectDentistActivity.class);
-//            startActivity(intent);
-        });
+        tmpLabTest = new ArrayList<>();
+        listTmpSampleDto = new ArrayList<>();
 
     }
 
@@ -166,45 +106,40 @@ public class BookApptActivity extends BaseActivity {
 
     @Override
     public void bindView() {
-        tvDate = findViewById(R.id.tv_date_quickbook);
-        tvDateError = findViewById(R.id.tv_date_error_quickbook);
-        tvTime = findViewById(R.id.tv_time_quickbook);
-        tvPrice = findViewById(R.id.tv_price);
-        btnQuickBook = findViewById(R.id.btn_quickbook);
+        viewPager = findViewById(R.id.pager_sample);
+        btnNextStep = findViewById(R.id.btn_next_step);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new BookStep1Fragment(), "Lịch hẹn mới");
+        adapter.addFrag(new BookStep2Fragment(), "Lịch hẹn cũ");
+        viewPager.setAdapter(adapter);
+        viewPager.setEnabled(false);
+        btnNextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+            }
+        });
 
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
+
+
 
     @Override
     public void callDataResource() {
-        SampleService sampleService = APIServiceManager.getService(SampleService.class);
-        sampleService.getAllSample().subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new MySingleObserver<List<SampleDto>>(this) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        apiDisposable = d;
-                    }
 
-                    @Override
-                    protected void onResponseSuccess(Response<List<SampleDto>> sampleDtoResponse) {
-                        List<SampleDto> lst = sampleDtoResponse.body();
-                        int a = 1;
-                    }
-                });
     }
 
     @Override
     public void updateUIData(Object obj) {
 
     }
-private Disposable apiDisposable
-        ;
+
+    private Disposable apiDisposable;
+
     @Override
     protected void onStop() {
         super.onStop();
-        if (apiDisposable != null) {
-            apiDisposable.dispose();
-        }
     }
 
     @Override
@@ -214,93 +149,6 @@ private Disposable apiDisposable
         }
     }
 
-    public AppointmentRequest getFormData() {
-//        User user = CoreManager.getUser(this);
-//        if (user != null) {
-//            String phone = user.getPhone();
-//        String phone = tvPhone.getText().toString().trim();
-        String dateBooking = tvDate.getText().toString().trim();
-        String note = comtvNote.getText().toString().trim();
-        String name = tvFullname.getText().toString().trim();
-        String bookingDate = DateUtils.changeDateFormat(
-                dateBooking,
-                DateTimeFormat.DATE_APP,
-                DateTimeFormat.DATE_TIME_DB);
-        AppointmentRequest request = new AppointmentRequest();
-        request.setDate(bookingDate);
-        request.setNote(note);
-        request.setFullname(name);
-//        request.setPhone(phone);
-        return request;
-//        }
-//        return null;
-    }
-
-    public boolean isValidateForm() {
-        boolean isAllFieldValid = true;
-//        String phone = tvPhone.getText().toString().trim();
-//        String note = comtvNote.getText().toString().trim();
-        String txtDate = tvDate.getText().toString().trim();
-        View viewFocus = null;
-        if (Validation.isNullOrEmpty(txtDate)
-                || (txtDate != null && txtDate.equals(getString(R.string.label_date_bookapt)))) {
-            viewFocus = tvDateError;
-            tvDateError.setText("Vui lòng chọn ngày");
-            isAllFieldValid = false;
-        }
-        if (!isAllFieldValid) {
-            viewFocus.requestFocus();
-        }
-        return isAllFieldValid && isDateValid;
-    }
-
-    public void callApi(AppointmentRequest requestObj) {
-        showLoading();
-        UserService appointmentService =
-                APIServiceManager.getService(UserService.class);
-//        appointmentService.bookAppointment(requestObj)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new SingleObserver<Response<SuccessResponse>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//                        appointmentDisposable = d;
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Response<SuccessResponse> response) {
-//                        if (response.isSuccessful()) {
-//                            String successMsg = "Đặt lịch thành công";
-//                            if (response.body() != null) {
-//                                successMsg = response.body().getMessage();
-//                            }
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(BookApptActivity.this)
-//                                    .setTitle(getString(R.string.dialog_default_title))
-//                                    .setMessage(successMsg)
-//                                    .setPositiveButton("Xác nhận", (DialogInterface var1, int var2) -> {
-//                                        finish();
-//                                    });
-//                            builder.create().show();
-//                        } else if (response.code() == 500) {
-//                            showFatalError(response.errorBody(), "appointmentService");
-//                        } else if (response.code() == 401) {
-//                            showErrorUnAuth();
-//                        } else if (response.code() == 400) {
-//                            showBadRequestError(response.errorBody(), "appointmentService");
-//                        } else {
-//                            showErrorMessage(getString(R.string.error_on_error_when_call_api));
-//                        }
-//                        hideLoading();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        showWarningMessage(getResources().getString(R.string.error_on_error_when_call_api));
-//                        hideLoading();
-//                    }
-//                });
-    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -308,5 +156,41 @@ private Disposable apiDisposable
         return true;
     }
 
+    @Override
+    public void onDateReceiver(List<LabTest> data,List<SampleDto> listTmpSampleDto) {
+        tmpLabTest.clear();
+        tmpLabTest.addAll(data);
+        this.listTmpSampleDto.clear();
+        this.listTmpSampleDto.addAll(listTmpSampleDto);
+        int a = 1;
+    }
 
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }
