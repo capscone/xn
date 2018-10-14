@@ -62,7 +62,9 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
     private CustomViewPager viewPager;
     private List<LabTest> tmpLabTest;
     private List<SampleDto> listTmpSampleDto;
-private  Button btnNextStep;
+    private Button btnNextStep;
+    private Button btnPrevStep;
+
     @Override
     protected int getLayoutView() {
         return R.layout.activity_quick_register;
@@ -103,26 +105,42 @@ private  Button btnNextStep;
     public String getMainTitle() {
         return "Đặt lịch";
     }
-
+    BookStep1Fragment fragment1;
+    BookStep2Fragment fragment2;
     @Override
     public void bindView() {
         viewPager = findViewById(R.id.pager_sample);
         btnNextStep = findViewById(R.id.btn_next_step);
+        btnPrevStep = findViewById(R.id.btn_prev_step);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new BookStep1Fragment(), "Lịch hẹn mới");
-        adapter.addFrag(new BookStep2Fragment(), "Lịch hẹn cũ");
+        fragment1 = new BookStep1Fragment();
+        fragment2 = new BookStep2Fragment();
+        adapter.addFrag(fragment1, "1");
+        adapter.addFrag(fragment2, "2");
         viewPager.setAdapter(adapter);
         viewPager.setEnabled(false);
+        btnPrevStep.setVisibility(View.INVISIBLE);
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewPager.setCurrentItem(1);
+                if (fragment2 != null) {
+                    fragment2.setDataSample(listTmpSampleDto);
+                }
+                btnPrevStep.setVisibility(View.VISIBLE);
+                btnNextStep.setVisibility(View.INVISIBLE);
+            }
+        }); btnPrevStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(0);
+                 btnNextStep.setVisibility(View.VISIBLE);
+                btnPrevStep.setVisibility(View.INVISIBLE);
             }
         });
 
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
-
 
 
     @Override
@@ -157,7 +175,7 @@ private  Button btnNextStep;
     }
 
     @Override
-    public void onDateReceiver(List<LabTest> data,List<SampleDto> listTmpSampleDto) {
+    public void onDateReceiver(List<LabTest> data, List<SampleDto> listTmpSampleDto) {
         tmpLabTest.clear();
         tmpLabTest.addAll(data);
         this.listTmpSampleDto.clear();

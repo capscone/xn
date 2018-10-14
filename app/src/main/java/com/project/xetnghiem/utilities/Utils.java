@@ -144,4 +144,18 @@ public class Utils {
     public static void unsubscribeReloadClinicAppointment() {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(AppConst.TOPIC_RELOAD_APPOINTMENT);
     }
+    public static String getTimeInStr(int minute) {
+        int hourInt = minute / 60;
+        int minInt = minute % 60;
+        String hourStr, minuteStr;
+        hourStr = hourInt + "";
+        if (hourInt < 10) {
+            hourStr = "0" + hourInt;
+        }
+        minuteStr = minInt + "";
+        if (minInt < 10) {
+            minuteStr = "0" + minInt;
+        }
+        return hourStr + ":" + minuteStr;
+    }
 }

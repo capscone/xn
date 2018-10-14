@@ -14,17 +14,22 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.activities.BookApptActivity;
+import com.project.xetnghiem.adapter.BookSampleAdapter;
 import com.project.xetnghiem.api.requestObj.AppointmentRequest;
+import com.project.xetnghiem.models.SampleDto;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Validation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class BookStep2Fragment extends BaseFragment {
     private AutoCompleteTextView tvPhone;
@@ -33,8 +38,12 @@ public class BookStep2Fragment extends BaseFragment {
     private TextView tvDate;
     private TextView tvTime;
     private TextView tvPrice;
+    private ListView listSampleBook;
     private TextView tvDateError;
-    private Button btnQuickBook;View mainView;
+    private Button btnQuickBook;
+    View mainView;
+    private BookSampleAdapter adapter;
+    private List<SampleDto> listSampleDto;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,71 +55,45 @@ public class BookStep2Fragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for getContext() fragment
         mainView = inflater.inflate(R.layout.fragment_book_step2, container, false);
+        bindView();
+        if (listSampleDto == null) {
+            listSampleDto = new ArrayList<>();
+        }
+        if (adapter == null) {
+            if (getContext() != null) {
 
+                adapter = new BookSampleAdapter(getContext(), listSampleDto, new BookSampleAdapter.SpinnerSelectLisenter() {
+                    @Override
+                    public void onClick(String data, int sampleId) {
+
+                    }
+                });
+            }
+        }
+        listSampleBook.setAdapter(adapter);
         return mainView;
+    }
+
+    public void setDataSample(List<SampleDto> list) {
+        listSampleDto.clear();
+        listSampleDto.addAll(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        bindView();
     }
 
     @Override
     public void bindView() {
 
-        tvDate = mainView.findViewById(R.id.tv_date_quickbook);
-        tvDateError = mainView.findViewById(R.id.tv_date_error_quickbook);
-        tvTime = mainView.findViewById(R.id.tv_time_quickbook);
-        tvPrice =mainView. findViewById(R.id.tv_price);
-        btnQuickBook = mainView.findViewById(R.id.btn_quickbook);
+//        tvTime = mainView.findViewById(R.id.tv_time_quickbook);
+//        tvPrice =mainView. findViewById(R.id.tv_price);
+        btnQuickBook = mainView.findViewById(R.id.btn_book);
+        listSampleBook = mainView.findViewById(R.id.list_view_book_sample);
 
 
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        Calendar currentDay = Calendar.getInstance();
-        tvDate.setOnClickListener((view) ->
-        {
-            showMessage("date");
-            DatePickerDialog dialog = new DatePickerDialog(getContext(),
-                    (DatePicker datePicker, int iYear, int iMonth, int iDay) -> {
-                        String date = iDay + "/" + (iMonth + 1) + "/" + iYear;
-                        c.set(iYear, iMonth, iDay, 23, 59);
-                        if (currentDay.after(c)) {
-                            tvDateError.setText(getString(R.string.label_error_appnt_date));
-                            isDateValid = false;
-                        } else {
-                            tvDateError.setText("");
-                            isDateValid = true;
-                        }
-                        tvDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
-                        tvDate.setTextColor(
-                                ContextCompat.getColor(getContext(), R.color.color_black)
-                        );
-                    }, year, month, day);
-            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
-            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
-
-            dialog.show();
-        });
-        tvTime.setOnClickListener((v) -> {
-            showMessage("time");
-            TimePickerDialog dialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                    String time = i + " : " + i1;
-                    tvTime.setText(time); tvTime.setTextColor(
-                            ContextCompat.getColor(getContext(), R.color.color_black)
-                    );
-                }
-            }, currentDay.get(Calendar.HOUR_OF_DAY), currentDay.get(Calendar.MINUTE), true);
-            dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
-            dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
-
-            dialog.show();
-        });
 
         btnQuickBook.setOnClickListener((view) -> {
         });
@@ -118,7 +101,7 @@ public class BookStep2Fragment extends BaseFragment {
 
     @Override
     public void updateUIData(Object obj) {
-        
+
     }
 
     public boolean isValidateForm() {
@@ -138,6 +121,7 @@ public class BookStep2Fragment extends BaseFragment {
         }
         return isAllFieldValid && isDateValid;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
