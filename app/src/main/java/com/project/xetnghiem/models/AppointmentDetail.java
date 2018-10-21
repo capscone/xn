@@ -11,6 +11,8 @@ public class AppointmentDetail {
     private String sampleName;
     @SerializedName("StartTime")
     private String startTime;
+    @SerializedName("GettingDate")
+    private String gettingDate;
     @SerializedName("FinishTime")
     private String finishTime;
     private boolean isHeader = false;
@@ -67,5 +69,13 @@ public class AppointmentDetail {
 
     public void setHeader(boolean header) {
         isHeader = header;
+    }
+
+    public String getGettingDate() {
+        return gettingDate;
+    }
+
+    public void setGettingDate(String gettingDate) {
+        this.gettingDate = gettingDate;
     }
 }

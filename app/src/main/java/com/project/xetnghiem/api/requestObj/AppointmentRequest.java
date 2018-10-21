@@ -3,58 +3,71 @@ package com.project.xetnghiem.api.requestObj;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class AppointmentRequest implements Serializable {
 
-    @SerializedName("booking_date")
-    private String date;
-    @SerializedName("phone")
-    private String phone;
-    @SerializedName("note")
-    private String note;
-    @SerializedName("name")
-    private String fullname;
+    @SerializedName("PatientId")
+    private int patientId;
+    @SerializedName("SampleGettingDtos")
+    private List<SampleGettingDtos> list;
 
-    public AppointmentRequest() {
+    public int getPatientId() {
+        return patientId;
     }
 
-    public AppointmentRequest(String date, String phone, String note, String fullname) {
-        this.date = date;
-        this.phone = phone;
-        this.note = note;
-        this.fullname = fullname;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
-
-    public String getPhone() {
-        return phone;
+    public List<SampleGettingDtos> getList() {
+        return list;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setList(List<SampleGettingDtos> list) {
+        this.list = list;
     }
 
-    public String getDate() {
-        return date;
-    }
+    public static class SampleGettingDtos {
+        @SerializedName("SampleId")
+        private int sampleId;
+        @SerializedName("LabTestIds")
+        private List<Integer> labTestIds;
+        @SerializedName("StartTime")
+        private String startTime;
+        @SerializedName("FinishTime")
+        private String finishTime;
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+        public int getSampleId() {
+            return sampleId;
+        }
 
-    public String getNote() {
-        return note;
-    }
+        public void setSampleId(int sampleId) {
+            this.sampleId = sampleId;
+        }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
+        public List<Integer> getLabTestIds() {
+            return labTestIds;
+        }
 
-    public String getFullname() {
-        return fullname;
-    }
+        public void setLabTestIds(List<Integer> labTestIds) {
+            this.labTestIds = labTestIds;
+        }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getFinishTime() {
+            return finishTime;
+        }
+
+        public void setFinishTime(String finishTime) {
+            this.finishTime = finishTime;
+        }
     }
 }

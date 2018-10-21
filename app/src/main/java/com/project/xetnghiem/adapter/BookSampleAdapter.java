@@ -93,6 +93,7 @@ public class BookSampleAdapter extends BaseAdapter {
 ////                                isDateValid = true;
 //                            }
                             txtDateFinal.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
+                            dto.setDateStr(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_TIME_DB_2));
 //                            holder.txtDate.setTextColor(
 //                                    ContextCompat.getColor(getContext(), R.color.color_black)
 //                            );

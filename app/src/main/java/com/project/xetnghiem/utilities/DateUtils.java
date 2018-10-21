@@ -24,11 +24,13 @@ public class DateUtils {
             SimpleDateFormat smpSrc = new SimpleDateFormat(srcFormat.toString(), Locale.US);
             Date srcDate = smpSrc.parse(source);
             SimpleDateFormat smpTarget = new SimpleDateFormat(targetFormat.toString(), Locale.US);
-            String targetDate = smpTarget.format(srcDate);
-            return targetDate;
-        } catch (ParseException e) {
+            return  smpTarget.format(srcDate);
+        } catch (ParseException  e) {
             e.printStackTrace();
-            return null;
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
 
     }

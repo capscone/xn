@@ -14,7 +14,7 @@ public class LabTest {
     private int price;
     private boolean isChecked;
     private boolean isHeader = false;
-
+private int sampleId;
     public LabTest(boolean isHeader, String sampleName) {
         this.isHeader = isHeader;
         this.sampleName = sampleName;
@@ -74,5 +74,13 @@ public class LabTest {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public int getSampleId() {
+        return sampleId;
+    }
+
+    public void setSampleId(int sampleId) {
+        this.sampleId = sampleId;
     }
 }

@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.services.PatientService;
+import com.project.xetnghiem.models.Patient;
+import com.project.xetnghiem.utilities.CoreManager;
+import com.project.xetnghiem.utilities.GenderUtils;
 import com.project.xetnghiem.utilities.Validation;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -83,6 +86,9 @@ public class LoginActivity extends BaseActivity {
         CircleImageView cicleAvatar = toolbar.findViewById(R.id.imgAvatar);
         backBtn.setVisibility(View.INVISIBLE);
         cicleAvatar.setVisibility(View.INVISIBLE);
+        if (CoreManager.getPatient(this) != null) {
+            redirectToMain();
+        }
         tvLinkRegister.setOnClickListener((v) -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
@@ -99,6 +105,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 logInfo("Method:", response.body());
+//                CoreManager.setPatient(this, response.body());
             }
 
             @Override
@@ -160,6 +167,13 @@ public class LoginActivity extends BaseActivity {
 
     public void callApiLogin(String username, String password) {
         redirectToMain();
+        Patient patient = new Patient();
+        patient.setAddress("VIet nam");
+        patient.setGender("FEMALE");
+        patient.setName("Doggy");
+        patient.setPhone("0909999999");
+        patient.setId(1);
+        CoreManager.setPatient(this, patient);
     }
 
     public void redirectToMain(){

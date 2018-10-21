@@ -18,6 +18,8 @@ public class SampleDto {
     @SerializedName("CloseTime")
     private float closeTime;
 
+private String timeStr;
+private String dateStr;
 
     public int getSampleId() {
         return sampleId;
@@ -65,5 +67,21 @@ public class SampleDto {
 
     public void setCloseTime(float closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public String getTimeStr() {
+        return timeStr;
+    }
+
+    public void setTimeStr(String timeStr) {
+        this.timeStr = timeStr;
+    }
+
+    public String getDateStr() {
+        return dateStr;
+    }
+
+    public void setDateStr(String dateStr) {
+        this.dateStr = dateStr;
     }
 }

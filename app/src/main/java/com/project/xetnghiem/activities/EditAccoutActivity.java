@@ -38,14 +38,14 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class EditAccoutActivity extends BaseActivity implements View.OnClickListener {
-    EditText txtName;
-    TextView txtDateOfBirth, txtDateError;
-    AutoCompleteTextView txtAddress;
-    RadioGroup rgGender;
-    RadioButton rbMale, rbFemale, rbOther;
-    Spinner spDistrict, spCity;
-    Button btnUpdate;
-    Patient patient;
+    private EditText txtName;
+    private TextView txtDateOfBirth, txtDateError;
+    private AutoCompleteTextView txtAddress;
+    private RadioGroup rgGender;
+    private RadioButton rbMale, rbFemale, rbOther;
+    private Spinner spDistrict, spCity;
+    private Button btnUpdate;
+    private Patient patient;
     private Disposable addrServiceDisposable;
     private Disposable registerServiceDisposable;
     private Disposable districtServiceDisposable;

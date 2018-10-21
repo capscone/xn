@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.project.xetnghiem.R;
+import com.project.xetnghiem.adapter.CustomViewPager;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.responseObj.SuccessResponse;
@@ -43,7 +44,7 @@ public class AppointmentListActivity extends BaseActivity {
 
 //    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
 
     @Override
     protected int getLayoutView() {
@@ -70,9 +71,9 @@ public class AppointmentListActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new NewAppointmentFragment(),"Lịch hẹn mới");
         adapter.addFrag(new OldAppointmentFragment(),"Lịch hẹn cũ");
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(adapter);
-
+        mViewPager.setPagingEnabled(false);
         TabLayout tabLayout =  findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

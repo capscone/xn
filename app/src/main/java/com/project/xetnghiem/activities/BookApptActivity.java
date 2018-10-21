@@ -118,7 +118,7 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
         adapter.addFrag(fragment1, "1");
         adapter.addFrag(fragment2, "2");
         viewPager.setAdapter(adapter);
-        viewPager.setEnabled(false);
+        viewPager.setPagingEnabled(false);
         btnPrevStep.setVisibility(View.INVISIBLE);
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,7 +179,29 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
         tmpLabTest.clear();
         tmpLabTest.addAll(data);
         this.listTmpSampleDto.clear();
-        this.listTmpSampleDto.addAll(listTmpSampleDto);
+//        this.listTmpSampleDto.addAll(listTmpSampleDto);
+
+        for (SampleDto dto : listTmpSampleDto) {
+            SampleDto d = new SampleDto();
+            d.setSampleId(dto.getSampleId());
+            d.setDateStr(dto.getDateStr());
+            d.setTimeStr(dto.getTimeStr());
+            d.setSampleDuration(dto.getSampleDuration());
+            d.setOpenTime(dto.getOpenTime());
+            d.setCloseTime(dto.getCloseTime());
+            d.setSampleName(dto.getSampleName());
+            this.listTmpSampleDto.add(d);
+        }
+        for (SampleDto dto : this.listTmpSampleDto) {
+            for (LabTest labTest : tmpLabTest) {
+                if (dto.getSampleId() == labTest.getSampleId()) {
+                    if (dto.getLabTests() == null) {
+                        dto.setLabTests(new ArrayList<>());
+                    }
+                    dto.getLabTests().add(labTest);
+                }
+            }
+        }
         int a = 1;
     }
 

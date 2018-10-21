@@ -55,11 +55,19 @@ public enum DateTimeFormat {
         }
     },
     /**
-     * empty string
+     * h:mm a
      */
-    DATE_APP_3 {
+    TIME_APP_1 {
         public String toString() {
-            return "";
+            return "h:mm a";
         }
-    };
+    },
+    /**
+     * HH:mm:ss
+     */
+    TIME_DB_1 {
+        public String toString() {
+            return "HH:mm:ss";
+        }
+    }
 }

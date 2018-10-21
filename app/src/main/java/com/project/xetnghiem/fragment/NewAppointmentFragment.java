@@ -1,6 +1,8 @@
 package com.project.xetnghiem.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.adapter.AppointmentAdapter;
 import com.project.xetnghiem.adapter.AppointmentHeaderAdapter;
@@ -22,6 +28,7 @@ import com.project.xetnghiem.models.AppointmentDetail;
 import com.project.xetnghiem.models.BaseContext;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
+import com.project.xetnghiem.utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class NewAppointmentFragment extends BaseFragment implements BaseContext {
-    private ListView listView;
+    private SwipeMenuListView listView;
     private List<AppointmentDetail> listAppt;
     private AppointmentHeaderAdapter adapter;
 
@@ -55,6 +62,73 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
         if (adapter == null) {
             adapter = new AppointmentHeaderAdapter(getContext(), listAppt);
         }
+        ///test
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {switch (menu.getViewType()) {
+                case AppointmentHeaderAdapter.TYPE_SEPARATOR:
+
+                    break;
+                case AppointmentHeaderAdapter.TYPE_ITEM:
+                    // create "open" item
+                    SwipeMenuItem openItem = new SwipeMenuItem(
+                            getContext());
+                    // set item background
+                    openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                            0xCE)));
+                    // set item width
+                    openItem.setWidth((int)Utils.convertDpToPixel((float)90 , getContext()));
+                    // set item title
+                    openItem.setTitle("Open");
+                    // set item title fontsize
+                    openItem.setTitleSize(18);
+                    // set item title font color
+                    openItem.setTitleColor(Color.WHITE);
+                    // add to menu
+                    menu.addMenuItem(openItem);
+
+                    // create "delete" item
+                    SwipeMenuItem deleteItem = new SwipeMenuItem(
+                            getContext());
+                    // set item background
+                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                            0x3F, 0x25)));
+                    // set item width
+                    deleteItem.setWidth((int)Utils.convertDpToPixel((float)90 , getContext()));
+                    // set a icon
+                    deleteItem.setIcon(R.drawable.ic_delete_black_24dp);
+                    // add to menu
+                    menu.addMenuItem(deleteItem);
+                    // create menu of type 1
+                    break;
+            }
+
+            }
+        };
+
+// set creator
+        listView.setMenuCreator(creator);
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        AppointmentDetail ad =  listAppt.get(position);
+                        break;
+                    case 1:
+                      AppointmentDetail ad2 =  listAppt.get(position);
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+        
+        //endtest
+
+
+        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
         listView.setAdapter(adapter);
 //        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
         callDataResource();
@@ -101,13 +175,13 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
                             AppointmentDetail crr = null;
                             do {
                                 i--;
-                                String prvFormat = getDateFormat(prev.getStartTime());
+                                String prvFormat =  prev.getGettingDate( );
                                 if (i < 0) {
                                     listAppt.add(i + 1, new AppointmentDetail(true, prvFormat));
                                     break;
                                 }
                                 crr = listAppt.get(i);
-                                String crrFormat = getDateFormat(crr.getStartTime());
+                                String crrFormat =  crr.getGettingDate( );
                                 if (!prvFormat.equals(crrFormat)) {
                                     listAppt.add(i + 1, new AppointmentDetail(true, prvFormat));
                                 }
@@ -121,7 +195,7 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
 
     public String getDateFormat(String src) {
         String dateTmp = DateUtils.changeDateFormat(src,
-                DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.DATE_APP_2);
+                DateTimeFormat.DATE_TIME_DB_2, DateTimeFormat.TIME_APP_1);
         return dateTmp;
     }
 
@@ -133,10 +207,10 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
 
         @Override
         public int compare(AppointmentDetail a1, AppointmentDetail a2) {
-            String dateFormat1 = DateUtils.changeDateFormat(a1.getStartTime(),
-                    DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.DATE_APP_2);
-            String dateFormat2 = DateUtils.changeDateFormat(a2.getStartTime(),
-                    DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.DATE_APP_2);
+            String dateFormat1 = DateUtils.changeDateFormat(a1.getGettingDate(),
+                    DateTimeFormat.DATE_TIME_DB_2, DateTimeFormat.DATE_APP_2);
+            String dateFormat2 = DateUtils.changeDateFormat(a2.getGettingDate(),
+                    DateTimeFormat.DATE_TIME_DB_2, DateTimeFormat.DATE_APP_2);
             if (dateFormat2 != null && dateFormat1 != null) {
                 return dateFormat2.compareTo(dateFormat1);
             }

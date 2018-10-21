@@ -155,6 +155,7 @@ public class BookStep1Fragment extends BaseFragment {
 
     @Override
     protected void callDataResource() {
+        showLoading();
         SampleService sampleService = APIServiceManager.getService(SampleService.class);
         sampleService.getAllSample().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -166,6 +167,7 @@ public class BookStep1Fragment extends BaseFragment {
 
                     @Override
                     protected void onResponseSuccess(Response<List<SampleDto>> sampleDtoResponse) {
+                        hideLoading();
                         List<SampleDto> lst = sampleDtoResponse.body();
                         if (listSampleDto == null) {
                             listSampleDto = new ArrayList<>();
@@ -179,6 +181,7 @@ public class BookStep1Fragment extends BaseFragment {
                             for (LabTest labTest : dto.getLabTests()) {
                                 labTest.setSampleName(sampleName);
                                 labTest.setHeader(false);
+                                labTest.setSampleId(dto.getSampleId());
                                 listLabTest.add(labTest);
                             }
                         }

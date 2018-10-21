@@ -48,4 +48,8 @@ public class TimeSpinnerAdapter extends ArrayAdapter {
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
+//    BookSampleAdapter.SpinnerSelectLisenter lisenter
+//    interface SpinnerSelectListener{
+//        void onSelect(String row);
+//    }
 }

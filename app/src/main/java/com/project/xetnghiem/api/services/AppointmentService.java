@@ -10,7 +10,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface AppointmentService{
-    @GET("api/appointment/get-new-appointment-by-patient-id")
+    @GET("api/appointment/get-new-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getNewApptByPatientId(@Query("patientId") int patientId);
+ @GET("api/appointment/get-old-appointments-by-patient-id")
+    Single<Response<List<Appointment>>> getOldApptByPatientId(@Query("patientId") int patientId);
 
 }

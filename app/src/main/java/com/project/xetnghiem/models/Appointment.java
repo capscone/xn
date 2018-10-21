@@ -6,15 +6,15 @@ import java.util.List;
 
 public class Appointment {
     @SerializedName("AppointmentCode")
-    private int id;
+    private String id;
     @SerializedName("SampleGettingDtos")
     private List<AppointmentDetail> listApptDetail;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

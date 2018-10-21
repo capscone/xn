@@ -85,16 +85,17 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         txtPhone = findViewById(R.id.txt_phone);
         txtAddress = findViewById(R.id.txt_address);
         txtAnamnesis = findViewById(R.id.txt_list_anamnesis);
-//        prepareData();
-//        if(CoreManager.getUser(getContext()).getPatients()==null|| CoreManager.getUser(getContext()).getPatients().isEmpty()){
-//            callApiCheck(CoreManager.getUser(getContext()).getPhone());
-//        }else{
-//            setData(CoreManager.getCurrentPatient(getContext()));
-//        }
     }
 
     @Override
     public void callDataResource() {
+        Patient p = CoreManager.getPatient(this);
+        if (p == null) {
+//            callApiCheck(CoreManager.getPatient(this).getPhone());
+            showMessage("Patient is null");
+        } else {
+            updateUIData(CoreManager.getPatient(this));
+        }
 
     }
 
