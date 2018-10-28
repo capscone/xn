@@ -16,6 +16,8 @@ import com.project.xetnghiem.adapter.BookSampleAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.AppointmentRequest;
+import com.project.xetnghiem.api.responseObj.ResponseMessage;
+import com.project.xetnghiem.api.services.AppointmentService;
 import com.project.xetnghiem.api.services.BookApptService;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
@@ -130,17 +132,17 @@ public void callApiBookAppointment(){
     }
     request.setList(list);
 
-    BookApptService service = APIServiceManager.getService(BookApptService.class);
-    service.bookAppointment(request).subscribeOn(Schedulers.newThread())
+     AppointmentService service = APIServiceManager.getService(AppointmentService.class);
+    service.updateAppointment(request).subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new MySingleObserver<Boolean>(this) {
+            .subscribe(new MySingleObserver<ResponseMessage>(this) {
                 @Override
                 public void onSubscribe(Disposable d) {
 
                 }
 
                 @Override
-                protected void onResponseSuccess(Response<Boolean> booleanResponse) {
+                protected void onResponseSuccess(Response<ResponseMessage> response) {
 int a = 1;
                 }
             });

@@ -1,5 +1,6 @@
 package com.project.xetnghiem.api.services;
 
+import com.project.xetnghiem.api.requestObj.AppointmentRequest;
 import com.project.xetnghiem.api.responseObj.ResponseMessage;
 import com.project.xetnghiem.models.Appointment;
 
@@ -24,5 +25,5 @@ public interface AppointmentService {
     Single<Response<ResponseMessage>> cancelAppointment(@Query("appointmentCode") String appointmentCode);
 
     @PUT("api/appointment/update-appointment")
-    Single<Response<ResponseMessage>> updateAppointment(@Body Appointment appointment);
+    Single<Response<ResponseMessage>> updateAppointment(@Body AppointmentRequest appointment);
 }
