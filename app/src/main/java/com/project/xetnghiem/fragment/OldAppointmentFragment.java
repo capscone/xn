@@ -94,14 +94,20 @@ public class OldAppointmentFragment extends BaseFragment {
                     @Override
                     protected void onResponseSuccess(Response<List<Appointment>> appointmentResponse) {
                         if (appointmentResponse.body() != null) {
+                            if (appointmentResponse.body().size() == 0) {
+                                showMessage("Danh sách trống.");
+                            }
                             for (Appointment appointment : appointmentResponse.body()) {
                                 listAppt.addAll(appointment.getListApptDetail());
                             }
                             Collections.sort(listAppt, new OldAppointmentFragment.AppointmentDetailSort());
                             int i = listAppt.size() - 1;
-                            AppointmentDetail prev = listAppt.get(i);
+                            AppointmentDetail prev = null;
                             AppointmentDetail crr = null;
-                            do {
+                            if(i >= 0) {
+                                  prev = listAppt.get(i);
+                            }
+                            while (i >= 0) {
                                 i--;
                                 String prvFormat =  prev.getGettingDate( );
                                 if (i < 0) {
@@ -114,7 +120,7 @@ public class OldAppointmentFragment extends BaseFragment {
                                     listAppt.add(i + 1, new AppointmentDetail(true, prvFormat));
                                 }
                                 prev = crr;
-                            } while (i >= 0);
+                            };
                             adapter.notifyDataSetChanged();
                         }
                     }

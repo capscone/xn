@@ -16,6 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFF"
         android:textStyle="bold"
+        android:background="@color/color_blue_500"
         android:visibility="visible" />
 
 </LinearLayout>

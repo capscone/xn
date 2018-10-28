@@ -6,17 +6,10 @@ import java.util.List;
 
 public class Appointment {
     @SerializedName("AppointmentCode")
-    private String id;
+    private String appointmentCode;
     @SerializedName("SampleGettingDtos")
     private List<AppointmentDetail> listApptDetail;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public List<AppointmentDetail> getListApptDetail() {
         return listApptDetail;
@@ -24,5 +17,13 @@ public class Appointment {
 
     public void setListApptDetail(List<AppointmentDetail> listApptDetail) {
         this.listApptDetail = listApptDetail;
+    }
+
+    public String getAppointmentCode() {
+        return appointmentCode;
+    }
+
+    public void setAppointmentCode(String appointmentCode) {
+        this.appointmentCode = appointmentCode;
     }
 }

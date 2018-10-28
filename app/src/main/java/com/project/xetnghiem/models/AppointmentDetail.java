@@ -2,11 +2,14 @@ package com.project.xetnghiem.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class AppointmentDetail {
+
     @SerializedName("SampleId")
     private int sampleId;
     @SerializedName("LabTestIds")
-    private int labTestIds;
+    private List<Integer> labTestIds;
     @SerializedName("SampleName")
     private String sampleName;
     @SerializedName("StartTime")
@@ -15,11 +18,13 @@ public class AppointmentDetail {
     private String gettingDate;
     @SerializedName("FinishTime")
     private String finishTime;
+    private String appointmentCode;
     private boolean isHeader = false;
+
     public AppointmentDetail(){}
-    public AppointmentDetail(boolean isHeader, String startTime) {
+    public AppointmentDetail(boolean isHeader, String appointmentCode) {
         this.setHeader(isHeader);
-        this.startTime = startTime;
+        this.appointmentCode = appointmentCode;
     }
 
 
@@ -29,14 +34,6 @@ public class AppointmentDetail {
 
     public void setSampleId(int sampleId) {
         this.sampleId = sampleId;
-    }
-
-    public int getLabTestIds() {
-        return labTestIds;
-    }
-
-    public void setLabTestIds(int labTestIds) {
-        this.labTestIds = labTestIds;
     }
 
     public String getSampleName() {
@@ -77,5 +74,21 @@ public class AppointmentDetail {
 
     public void setGettingDate(String gettingDate) {
         this.gettingDate = gettingDate;
+    }
+
+    public String getAppointmentCode() {
+        return appointmentCode;
+    }
+
+    public void setAppointmentCode(String appointmentCode) {
+        this.appointmentCode = appointmentCode;
+    }
+
+    public List<Integer> getLabTestIds() {
+        return labTestIds;
+    }
+
+    public void setLabTestIds(List<Integer> labTestIds) {
+        this.labTestIds = labTestIds;
     }
 }

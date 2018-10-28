@@ -83,13 +83,14 @@ public class AppointmentHeaderAdapter extends BaseAdapter {
                     view = inflater.inflate(R.layout.item_appointment_detail, null);
                     holder.textSampleName = view.findViewById(R.id.txt_sample_type);
                     holder.textStartTime = view.findViewById(R.id.txt_start_time);
-                    holder.btnDelete = view.findViewById(R.id.btn_delete_appt);
-                    holder.btnUpdate = view.findViewById(R.id.btn_edit_appt);
+                    view.setEnabled(false);
+//                    holder.btnDelete = view.findViewById(R.id.btn_delete_appt);
+//                    holder.btnUpdate = view.findViewById(R.id.btn_edit_appt);
                     break;
                 case TYPE_SEPARATOR:
 
                     view = inflater.inflate(R.layout.sniplet_item2, null);
-                    view.setEnabled(false);
+//                    view.setEnabled(false);
                     holder.textView = view.findViewById(R.id.textSeparator);
                     holder.textSampleName = view.findViewById(R.id.txt_sample_type);
                     holder.textStartTime = view.findViewById(R.id.txt_start_time);
@@ -100,7 +101,7 @@ public class AppointmentHeaderAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         if (holder.textView != null) {
-            holder.textView.setText(date);
+            holder.textView.setText(appointment.getAppointmentCode());
         }
         if (holder.textSampleName != null) {
             holder.textSampleName.setText(appointment.getSampleName());
@@ -108,12 +109,12 @@ public class AppointmentHeaderAdapter extends BaseAdapter {
         if (holder.textStartTime != null) {
             holder.textStartTime.setText(appointment.getStartTime());
         }
-        if (holder.btnDelete != null) {
-            holder.btnDelete.setOnClickListener((v)->{});
-        }
-        if (holder.btnUpdate != null) {
-            holder.btnUpdate.setOnClickListener((v)->{});
-        }
+//        if (holder.btnDelete != null) {
+//            holder.btnDelete.setOnClickListener((v)->{});
+//        }
+//        if (holder.btnUpdate != null) {
+//            holder.btnUpdate.setOnClickListener((v)->{});
+//        }
         return view;
     }
 
@@ -121,7 +122,7 @@ public class AppointmentHeaderAdapter extends BaseAdapter {
         public TextView textView;
         public TextView textSampleName;
         public TextView textStartTime;
-        public ImageButton btnDelete;
-        public ImageButton btnUpdate;
+//        public ImageButton btnDelete;
+//        public ImageButton btnUpdate;
     }
 }

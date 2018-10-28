@@ -1,18 +1,28 @@
 package com.project.xetnghiem.api.services;
 
+import com.project.xetnghiem.api.responseObj.ResponseMessage;
 import com.project.xetnghiem.models.Appointment;
 
 import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
-public interface AppointmentService{
+public interface AppointmentService {
     @GET("api/appointment/get-new-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getNewApptByPatientId(@Query("patientId") int patientId);
- @GET("api/appointment/get-old-appointments-by-patient-id")
+
+    @GET("api/appointment/get-old-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getOldApptByPatientId(@Query("patientId") int patientId);
 
+    @DELETE("api/appointment/delete-appointment")
+    Single<Response<ResponseMessage>> cancelAppointment(@Query("appointmentCode") String appointmentCode);
+
+    @PUT("api/appointment/update-appointment")
+    Single<Response<ResponseMessage>> updateAppointment(@Body Appointment appointment);
 }
