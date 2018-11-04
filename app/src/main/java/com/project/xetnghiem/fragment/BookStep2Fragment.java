@@ -47,8 +47,8 @@ public class BookStep2Fragment extends BaseFragment {
     private AutoCompleteTextView tvFullname;
     private boolean isDateValid = true;
     private TextView tvDate;
-    private TextView tvTime;
-    private TextView tvPrice;
+    private TextView txtTime;
+    private TextView txtDate;
     private ListView listSampleBook;
     private TextView tvDateError;
     private Button btnQuickBook;
@@ -124,11 +124,45 @@ public class BookStep2Fragment extends BaseFragment {
 //        tvPrice =mainView. findViewById(R.id.tv_price);
         btnQuickBook = mainView.findViewById(R.id.btn_book);
         listSampleBook = mainView.findViewById(R.id.list_view_book_sample);
-
+        txtDate = mainView.findViewById(R.id.txt_sample_date);
+        txtTime = mainView.findViewById(R.id.txt_sample_time);
 
         btnQuickBook.setOnClickListener((view) -> {
             callApiBookAppointment();
         });
+        if ( txtDate != null) {
+            final TextView txtDateFinal = txtDate;
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            Calendar currentDay = Calendar.getInstance();
+              txtDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
+              txtDate.setOnClickListener((vw) ->
+            {
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                        (DatePicker datePicker, int iYear, int iMonth, int iDay) -> {
+                            String date = iDay + "/" + (iMonth + 1) + "/" + iYear;
+                            c.set(iYear, iMonth, iDay, 23, 59);
+//                            if (currentDay.after(c)) {
+////                                tvDateError.setText(getString(R.string.label_error_appnt_date));
+////                                isDateValid = false;
+//                            } else {
+////                                tvDateError.setText("");
+////                                isDateValid = true;
+//                            }
+                            txtDateFinal.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
+//                            holder.txtDate.setTextColor(
+//                                    ContextCompat.getColor(getContext(), R.color.color_black)
+//                            );
+                        }, year, month, day);
+//                dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
+//                dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
+
+                dialog.show();
+            });
+        }
+
     }
 
     public void callApiBookAppointment() {

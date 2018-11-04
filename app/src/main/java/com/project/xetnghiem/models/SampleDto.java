@@ -7,6 +7,8 @@ import java.util.List;
 public class SampleDto {
     @SerializedName("SampleId")
     private int sampleId;
+    @SerializedName("SampleGroupId")
+    private int sampleGroupId;
     @SerializedName("SampleName")
     private String sampleName;
     @SerializedName("LabTests")
@@ -83,5 +85,13 @@ private String dateStr;
 
     public void setDateStr(String dateStr) {
         this.dateStr = dateStr;
+    }
+
+    public int getSampleGroupId() {
+        return sampleGroupId;
+    }
+
+    public void setSampleGroupId(int sampleGroupId) {
+        this.sampleGroupId = sampleGroupId;
     }
 }

@@ -153,18 +153,13 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
         if (listAvailableSlots == null) {
             listAvailableSlots = new ArrayList<>();
         }
+
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
 
     @Override
     public void callDataResource() {
-       SampleSlotWrapper slotWrapper = Utils.getInSharePref(this, SampleSlotWrapper.class, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
-        if (slotWrapper !=null && slotWrapper.getList() != null && slotWrapper.getList().size() > 0) {
-            listAvailableSlots.clear();
-            listAvailableSlots.addAll(slotWrapper.getList());
-
-        }
         SlotService slotService = APIServiceManager.getService(SlotService.class);
         slotService.getAvaiableSlots().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -178,10 +173,8 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
                     public void onSuccess(Response<List<Slot>> listResponse) {
                         listAvailableSlots.clear();
                         listAvailableSlots.addAll(listResponse.body());
-                        SampleSlotWrapper wrapper = new SampleSlotWrapper();
-                        wrapper.setList(listAvailableSlots);
-                        Utils.saveInSharePref(BookApptActivity.this, wrapper, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
-                        if (fragment2 != null) {
+                        fragment1.setAvailableSlots(listAvailableSlots);
+                       if (fragment2 != null) {
                             fragment2.setAvailableSlots(listAvailableSlots);
                         }
                     }

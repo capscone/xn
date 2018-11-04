@@ -17,8 +17,15 @@ import com.project.xetnghiem.adapter.SampleHeaderAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.services.SampleService;
+import com.project.xetnghiem.models.Appointment;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.SampleSlotWrapper;
+import com.project.xetnghiem.models.SampleWrapper;
+import com.project.xetnghiem.models.Slot;
+import com.project.xetnghiem.utilities.AppConst;
+import com.project.xetnghiem.utilities.AppointmentSuggestor;
+import com.project.xetnghiem.utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +43,11 @@ public class BookStep1Fragment extends BaseFragment {
     private List<LabTest> listLabTest;
     private List<LabTest> tmpLabTest;
     private List<SampleDto> listTmpSampleDto;
+    private List<Slot> listSuggestTime;
     private DataListener dataListener = null;
+    private Disposable apiDisposable;
+    private List<SampleDto> listSampleDto;
+    private List<Slot> availableSlotsList;
 
     @Override
 
@@ -53,6 +64,12 @@ public class BookStep1Fragment extends BaseFragment {
         if (listLabTest == null) {
             listLabTest = new ArrayList<>();
         }
+        if (listSuggestTime == null) {
+            listSuggestTime = new ArrayList<>();
+        }
+        if (availableSlotsList == null) {
+            availableSlotsList = new ArrayList<>();
+        }
         dataListener = (DataListener) getActivity();
         adapter = new SampleHeaderAdapter(getContext(), listLabTest, new SampleHeaderAdapter.OnChangeChkListener() {
             @Override
@@ -61,14 +78,17 @@ public class BookStep1Fragment extends BaseFragment {
                     tmpLabTest.add(getLabtest(id));
                 } else {
                     tmpLabTest.remove(findLabtestPos(id));
-
                 }
                 filterSampleDto();
+                filterSuggestionTime();
                 dataListener.onDateReceiver(tmpLabTest, listTmpSampleDto);
             }
         });
         if (tmpLabTest == null) {
             tmpLabTest = new ArrayList<>();
+        }
+        if (listSampleDto == null) {
+            listSampleDto = new ArrayList<>();
         }
         if (listTmpSampleDto == null) {
             listTmpSampleDto = new ArrayList<>();
@@ -85,6 +105,12 @@ public class BookStep1Fragment extends BaseFragment {
             }
         }
         return null;
+    }
+
+
+    public void setAvailableSlots(List<Slot> list) {
+        availableSlotsList.clear();
+        availableSlotsList.addAll(list);
     }
 
     private int findLabtestPos(int id) {
@@ -107,6 +133,12 @@ public class BookStep1Fragment extends BaseFragment {
             }
         }
     }
+
+    public void filterSuggestionTime() {
+        AppointmentSuggestor appointmentSuggestor = new AppointmentSuggestor();
+        List<Slot> listSlot = appointmentSuggestor.CalcTheBestTour(availableSlotsList, "2018-11-04",45600,listTmpSampleDto);
+
+    int a = 1;}
 
     public boolean isDtoExist(SampleDto dto) {
         for (SampleDto tmp : listTmpSampleDto) {
@@ -150,11 +182,29 @@ public class BookStep1Fragment extends BaseFragment {
 
     }
 
-    private Disposable apiDisposable;
-    private List<SampleDto> listSampleDto;
 
     @Override
     protected void callDataResource() {
+        if(getContext()==null)return;
+        SampleWrapper sampleWrapper = Utils.getInSharePref(getContext(), SampleWrapper.class, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+        if (sampleWrapper !=null && sampleWrapper.getList() != null && sampleWrapper.getList().size() > 0) {
+            listSampleDto.clear();
+            listSampleDto.addAll(sampleWrapper.getList() );
+            listLabTest.clear();
+            for (SampleDto dto : listSampleDto) {
+                String sampleName = dto.getSampleName();
+                listLabTest.add(new LabTest(true, sampleName));
+                if(dto.getLabTests()==null)continue;
+                for (LabTest labTest : dto.getLabTests()) {
+                    labTest.setSampleName(sampleName);
+                    labTest.setHeader(false);
+                    labTest.setSampleId(dto.getSampleId());
+                    listLabTest.add(labTest);
+                }
+            }
+            adapter.notifyDataSetChanged();
+            return;
+        }
         showLoading();
         SampleService sampleService = APIServiceManager.getService(SampleService.class);
         sampleService.getAllSample().subscribeOn(Schedulers.newThread())
@@ -169,9 +219,6 @@ public class BookStep1Fragment extends BaseFragment {
                     protected void onResponseSuccess(Response<List<SampleDto>> sampleDtoResponse) {
                         hideLoading();
                         List<SampleDto> lst = sampleDtoResponse.body();
-                        if (listSampleDto == null) {
-                            listSampleDto = new ArrayList<>();
-                        }
                         listSampleDto.clear();
                         listSampleDto.addAll(sampleDtoResponse.body());
                         listLabTest.clear();
@@ -186,7 +233,10 @@ public class BookStep1Fragment extends BaseFragment {
                             }
                         }
                         adapter.notifyDataSetChanged();
-                        int a = 1;
+                        SampleWrapper wrapper = new SampleWrapper();
+                        wrapper.setList(listSampleDto);
+                        Utils.saveInSharePref(getContext(), wrapper, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+
                     }
                 });
     }

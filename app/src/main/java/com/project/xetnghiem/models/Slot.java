@@ -7,10 +7,12 @@ public class Slot {
     private int slotId;
     @SerializedName("SampleGroupId")
     private int sampleGroupId;
+    @SerializedName("SampleId")
+    private int sampleId;
     @SerializedName("StartTime")
-    private String startTime;
+    private int startTime;
     @SerializedName("FinishTime")
-    private String finishTime;
+    private int finishTime;
     @SerializedName("Date")
     private String date;
     @SerializedName("Quantity")
@@ -34,19 +36,19 @@ public class Slot {
         this.sampleGroupId = sampleGroupId;
     }
 
-    public String getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public String getFinishTime() {
+    public int getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(String finishTime) {
+    public void setFinishTime(int finishTime) {
         this.finishTime = finishTime;
     }
 
@@ -72,5 +74,13 @@ public class Slot {
 
     public void setRemainQuantity(int remainQuantity) {
         this.remainQuantity = remainQuantity;
+    }
+
+    public int getSampleId() {
+        return sampleId;
+    }
+
+    public void setSampleId(int sampleId) {
+        this.sampleId = sampleId;
     }
 }
