@@ -167,9 +167,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     public abstract String getMainTitle();
 
     public abstract void bindView();
-    protected void callDataResource(){
+
+    protected void callDataResource() {
 
     }
+
     public abstract void updateUIData(Object obj);
 
     public void redirectToActivity(Class<?> tClass, boolean forceFinish) {
@@ -178,7 +180,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         if (forceFinish) {
             finish();
         }
-    } public void redirectToActivityWithTop(Class<?> tClass, boolean forceFinish) {
+    }
+
+    public void redirectToActivityWithTop(Class<?> tClass, boolean forceFinish) {
         Intent intent = new Intent(this, tClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);

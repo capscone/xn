@@ -35,6 +35,8 @@ public class EditApptStep1Fragment extends BaseFragment {
     private List<SampleDto> listTmpSampleDto;
     private DataListener dataListener = null;
     private ArrayList<Integer> listLabTestIds;
+    private Disposable apiDisposable;
+    private List<SampleDto> listSampleDto;
 
     @Override
 
@@ -157,8 +159,6 @@ public class EditApptStep1Fragment extends BaseFragment {
 
     }
 
-    private Disposable apiDisposable;
-    private List<SampleDto> listSampleDto;
 
     public void setListLabTestIds(ArrayList<Integer> list) {
         listLabTestIds = list;
@@ -197,12 +197,14 @@ public class EditApptStep1Fragment extends BaseFragment {
                             }
                         }
                         if (listLabTestIds != null) {
-
                             for (LabTest labTest : listLabTest) {
                                 if (isLabtestIdInList(labTest.getLabTestId())) {
                                     tmpLabTest.add(labTest);
                                     labTest.setChecked(true);
                                     filterSampleDto();
+                                }
+                                if (dataListener != null) {
+                                    dataListener.onDateReceiver(tmpLabTest, listTmpSampleDto);
                                 }
                             }
                         }

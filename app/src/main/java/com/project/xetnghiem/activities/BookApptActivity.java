@@ -24,13 +24,16 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.common.api.internal.ApiExceptionMapper;
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.adapter.CustomViewPager;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.AppointmentRequest;
 import com.project.xetnghiem.api.responseObj.SuccessResponse;
+import com.project.xetnghiem.api.services.BookApptService;
 import com.project.xetnghiem.api.services.SampleService;
+import com.project.xetnghiem.api.services.SlotService;
 import com.project.xetnghiem.api.services.UserService;
 import com.project.xetnghiem.fragment.BookStep1Fragment;
 import com.project.xetnghiem.fragment.BookStep2Fragment;
@@ -38,9 +41,13 @@ import com.project.xetnghiem.fragment.NewAppointmentFragment;
 import com.project.xetnghiem.fragment.OldAppointmentFragment;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.SampleSlotWrapper;
+import com.project.xetnghiem.models.Slot;
+import com.project.xetnghiem.utilities.AppConst;
 import com.project.xetnghiem.utilities.CoreManager;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
+import com.project.xetnghiem.utilities.Utils;
 import com.project.xetnghiem.utilities.Validation;
 
 import java.util.ArrayList;
@@ -51,6 +58,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.internal.Util;
 import retrofit2.Response;
 
 public class BookApptActivity extends BaseActivity implements BookStep1Fragment.DataListener {
@@ -62,6 +70,7 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
     private CustomViewPager viewPager;
     private List<LabTest> tmpLabTest;
     private List<SampleDto> listTmpSampleDto;
+    private List<Slot> listAvailableSlots;
     private Button btnNextStep;
     private Button btnPrevStep;
 
@@ -105,8 +114,10 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
     public String getMainTitle() {
         return "Đặt lịch";
     }
+
     BookStep1Fragment fragment1;
     BookStep2Fragment fragment2;
+
     @Override
     public void bindView() {
         viewPager = findViewById(R.id.pager_sample);
@@ -130,22 +141,56 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
                 btnPrevStep.setVisibility(View.VISIBLE);
                 btnNextStep.setVisibility(View.INVISIBLE);
             }
-        }); btnPrevStep.setOnClickListener(new View.OnClickListener() {
+        });
+        btnPrevStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewPager.setCurrentItem(0);
-                 btnNextStep.setVisibility(View.VISIBLE);
+                btnNextStep.setVisibility(View.VISIBLE);
                 btnPrevStep.setVisibility(View.INVISIBLE);
             }
         });
-
+        if (listAvailableSlots == null) {
+            listAvailableSlots = new ArrayList<>();
+        }
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
 
     @Override
     public void callDataResource() {
+       SampleSlotWrapper slotWrapper = Utils.getInSharePref(this, SampleSlotWrapper.class, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+        if (slotWrapper !=null && slotWrapper.getList() != null && slotWrapper.getList().size() > 0) {
+            listAvailableSlots.clear();
+            listAvailableSlots.addAll(slotWrapper.getList());
 
+        }
+        SlotService slotService = APIServiceManager.getService(SlotService.class);
+        slotService.getAvaiableSlots().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Response<List<Slot>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Response<List<Slot>> listResponse) {
+                        listAvailableSlots.clear();
+                        listAvailableSlots.addAll(listResponse.body());
+                        SampleSlotWrapper wrapper = new SampleSlotWrapper();
+                        wrapper.setList(listAvailableSlots);
+                        Utils.saveInSharePref(BookApptActivity.this, wrapper, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+                        if (fragment2 != null) {
+                            fragment2.setAvailableSlots(listAvailableSlots);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     @Override

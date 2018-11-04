@@ -28,6 +28,7 @@ import com.project.xetnghiem.api.requestObj.AppointmentRequest;
 import com.project.xetnghiem.api.services.BookApptService;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.Slot;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Validation;
@@ -54,6 +55,7 @@ public class BookStep2Fragment extends BaseFragment {
     View mainView;
     private BookSampleAdapter adapter;
     private List<SampleDto> listSampleDto;
+    private List<Slot> availableSlots;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,9 @@ public class BookStep2Fragment extends BaseFragment {
         bindView();
         if (listSampleDto == null) {
             listSampleDto = new ArrayList<>();
+        }
+        if (availableSlots == null) {
+            availableSlots = new ArrayList<>();
         }
         if (adapter == null) {
             if (getContext() != null) {
@@ -87,7 +92,7 @@ public class BookStep2Fragment extends BaseFragment {
         return mainView;
     }
 
-    public SampleDto findInList(int sampleId){
+    public SampleDto findInList(int sampleId) {
         for (SampleDto dto : listSampleDto) {
             if (dto.getSampleId() == sampleId) {
                 return dto;
@@ -100,6 +105,11 @@ public class BookStep2Fragment extends BaseFragment {
         listSampleDto.clear();
         listSampleDto.addAll(list);
         adapter.notifyDataSetChanged();
+    }
+
+    public void setAvailableSlots(List<Slot> list) {
+        availableSlots.clear();
+        this.availableSlots.addAll(list);
     }
 
     @Override
@@ -116,47 +126,48 @@ public class BookStep2Fragment extends BaseFragment {
         listSampleBook = mainView.findViewById(R.id.list_view_book_sample);
 
 
-
         btnQuickBook.setOnClickListener((view) -> {
             callApiBookAppointment();
         });
     }
-public void callApiBookAppointment(){
-    AppointmentRequest request = new AppointmentRequest();
-    request.setPatientId(1);
 
-    List<AppointmentRequest.SampleGettingDtos> list = new ArrayList<>();
-    for (SampleDto dto : listSampleDto) {
-        String[] dtimes = dto.getTimeStr().split("-");
-        AppointmentRequest.SampleGettingDtos dtos = new AppointmentRequest.SampleGettingDtos();
-        String dateFormat = dto.getDateStr();
-        List<Integer> listIdLabTests = new ArrayList<>();
-        for (LabTest labTest : dto.getLabTests()) {
-            listIdLabTests.add(labTest.getLabTestId());
+    public void callApiBookAppointment() {
+        AppointmentRequest request = new AppointmentRequest();
+        request.setPatientId(1);
+
+        List<AppointmentRequest.SampleGettingDtos> list = new ArrayList<>();
+        for (SampleDto dto : listSampleDto) {
+            String[] dtimes = dto.getTimeStr().split("-");
+            AppointmentRequest.SampleGettingDtos dtos = new AppointmentRequest.SampleGettingDtos();
+            String dateFormat = dto.getDateStr();
+            List<Integer> listIdLabTests = new ArrayList<>();
+            for (LabTest labTest : dto.getLabTests()) {
+                listIdLabTests.add(labTest.getLabTestId());
+            }
+            dtos.setStartTime(dateFormat + " " + dtimes[0].trim());
+            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
+            dtos.setLabTestIds(listIdLabTests);
+            dtos.setSampleId(dto.getSampleId());
+            list.add(dtos);
         }
-        dtos.setStartTime(dateFormat +" "+ dtimes[0].trim());
-        dtos.setStartTime(dateFormat +" "+ dtimes[1].trim());
-        dtos.setLabTestIds(listIdLabTests);
-        dtos.setSampleId(dto.getSampleId());
-        list.add(dtos);
+        request.setList(list);
+
+        BookApptService service = APIServiceManager.getService(BookApptService.class);
+        service.bookAppointment(request).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MySingleObserver<Boolean>(this) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onResponseSuccess(Response<Boolean> booleanResponse) {
+                        int a = 1;
+                    }
+                });
     }
-    request.setList(list);
 
-    BookApptService service = APIServiceManager.getService(BookApptService.class);
-    service.bookAppointment(request).subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new MySingleObserver<Boolean>(this) {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                protected void onResponseSuccess(Response<Boolean> booleanResponse) {
-int a = 1;
-                }
-            });
-}
     @Override
     public void updateUIData(Object obj) {
 

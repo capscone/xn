@@ -9,22 +9,23 @@
     android:text="Mau"
     android:textSize="16sp"
     android:textStyle="bold"
-    android:layout_alignParentLeft="true"
-    android:layout_centerVertical="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
     />
      <TextView
          android:id="@+id/txt_sample_date"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="20/10/2018"
-         android:layout_centerHorizontal="true"
-         android:layout_centerVertical="true"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentTop="true"
          />
     <Spinner
         android:id="@+id/spn_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/txt_sample_date"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="3dp"
         ></Spinner>
 </RelativeLayout>

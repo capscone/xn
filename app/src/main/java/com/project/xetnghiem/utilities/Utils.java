@@ -58,7 +58,13 @@ public class Utils {
         editor.putString(STAFF_KEY, gson.toJson(user));
         editor.apply();
     }
-
+    public static <T> void saveInSharePref (Context context,Object t, String prefName, String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        editor.putString(key, gson.toJson(t));
+        editor.apply();
+    }
     public static Patient getPatientInSharePref(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String jsonUser = sharedPreferences.getString(STAFF_KEY, null);
@@ -66,7 +72,13 @@ public class Utils {
         Patient u = gson.fromJson(jsonUser, Patient.class);
         return u;
     }
-
+    public static <T> T getInSharePref (Context context,Class<T> t, String prefName, String key ) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        String jsonUser = sharedPreferences.getString(key, null);
+        Gson gson = new Gson();
+        T u = gson.fromJson(jsonUser, t);
+        return u;
+    }
     public static String getErrorMsg(ResponseBody responseBody) {
         try {
             if (responseBody != null) {

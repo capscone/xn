@@ -23,6 +23,4 @@ Single<Response<SuccessResponse>> changePatientInfo(@Body UpdatePatientRequest r
     Single<Response<SuccessResponse>> changeAvatar(
             @Part MultipartBody.Part image,
             @Part MultipartBody.Part id);
-        @GET("/WareHouse/Supplies")
-        Call<String> test();
 }

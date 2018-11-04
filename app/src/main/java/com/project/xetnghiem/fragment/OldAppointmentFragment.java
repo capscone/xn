@@ -17,6 +17,8 @@ import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.services.AppointmentService;
 import com.project.xetnghiem.models.Appointment;
 import com.project.xetnghiem.models.AppointmentDetail;
+import com.project.xetnghiem.models.Patient;
+import com.project.xetnghiem.utilities.CoreManager;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 
@@ -82,7 +84,8 @@ public class OldAppointmentFragment extends BaseFragment {
     protected void callDataResource() {
         showLoading();
         AppointmentService service = APIServiceManager.getService(AppointmentService.class);
-        service.getOldApptByPatientId(1)
+        Patient patient = CoreManager.getPatient(getContext());
+        service.getOldApptByPatientId(patient.getId())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySingleObserver<List<Appointment>>(this) {

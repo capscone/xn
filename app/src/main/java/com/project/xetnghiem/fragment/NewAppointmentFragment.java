@@ -29,6 +29,8 @@ import com.project.xetnghiem.api.services.AppointmentService;
 import com.project.xetnghiem.models.Appointment;
 import com.project.xetnghiem.models.AppointmentDetail;
 import com.project.xetnghiem.models.BaseContext;
+import com.project.xetnghiem.models.Patient;
+import com.project.xetnghiem.utilities.CoreManager;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Utils;
@@ -183,7 +185,8 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
     protected void callDataResource() {
         showLoading();
         AppointmentService service = APIServiceManager.getService(AppointmentService.class);
-        service.getNewApptByPatientId(1)
+        Patient patient = CoreManager.getPatient(getContext());
+        service.getNewApptByPatientId(patient.getId())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySingleObserver<List<Appointment>>(this) {

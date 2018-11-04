@@ -23,7 +23,7 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 
-public class EditAppointmentActivity extends BaseActivity implements EditApptStep1Fragment.DataListener{
+public class EditAppointmentActivity extends BaseActivity implements EditApptStep1Fragment.DataListener {
     private Disposable appointmentDisposable;
     //    private User user;
 //    private Patient patient;
@@ -33,7 +33,8 @@ public class EditAppointmentActivity extends BaseActivity implements EditApptSte
     private List<SampleDto> listTmpSampleDto;
     private Button btnNextStep;
     private Button btnPrevStep;
-ArrayList<Integer> listLabTestIds = null;
+    private ArrayList<Integer> listLabTestIds = null;
+
     @Override
     protected int getLayoutView() {
         return R.layout.activity_edit_appointment;
@@ -64,8 +65,7 @@ ArrayList<Integer> listLabTestIds = null;
 //        tvPhone.setText(mPhoneNumber);
 //        img.requestFocus();
 //        tvFullname.clearFocus();
-        Intent intent = getIntent();
-        listLabTestIds = intent.getIntegerArrayListExtra(NewAppointmentFragment.LIST_LABTEST_ID);
+
         tmpLabTest = new ArrayList<>();
         listTmpSampleDto = new ArrayList<>();
 
@@ -87,6 +87,8 @@ ArrayList<Integer> listLabTestIds = null;
         EditAppointmentActivity.ViewPagerAdapter adapter = new EditAppointmentActivity.ViewPagerAdapter(getSupportFragmentManager());
         fragment1 = new EditApptStep1Fragment();
         fragment2 = new EditApptStep2Fragment();
+        Intent intent = getIntent();
+        listLabTestIds = intent.getIntegerArrayListExtra(NewAppointmentFragment.LIST_LABTEST_ID);
         fragment1.setListLabTestIds(listLabTestIds);
         adapter.addFrag(fragment1, "1");
         adapter.addFrag(fragment2, "2");
@@ -175,8 +177,7 @@ ArrayList<Integer> listLabTestIds = null;
                     dto.getLabTests().add(labTest);
                 }
             }
-        }
-        int a = 1;
+        } 
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

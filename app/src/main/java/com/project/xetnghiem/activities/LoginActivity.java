@@ -100,19 +100,6 @@ public class LoginActivity extends BaseActivity {
         });
         txtPassword.clearFocus();
         txtPhone.clearFocus();
-        PatientService patientService = APIServiceManager.getService(PatientService.class);
-        patientService.test().enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                logInfo("Method:", response.body());
-//                CoreManager.setPatient(this, response.body());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
     }
 
 
@@ -166,7 +153,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void callApiLogin(String username, String password) {
-        redirectToMain();
+
         Patient patient = new Patient();
         patient.setAddress("VIet nam");
         patient.setGender("FEMALE");
@@ -174,6 +161,7 @@ public class LoginActivity extends BaseActivity {
         patient.setPhone("0909999999");
         patient.setId(1);
         CoreManager.setPatient(this, patient);
+        redirectToMain();
     }
 
     public void redirectToMain(){

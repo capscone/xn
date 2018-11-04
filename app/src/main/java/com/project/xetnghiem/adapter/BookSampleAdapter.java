@@ -106,9 +106,9 @@ public class BookSampleAdapter extends BaseAdapter {
 
         }
         if (holder.spnTime != null) {
-            int duration = dto.getSampleDuration();
-            int startTime = (int) (dto.getOpenTime() * 60);
-            int endTime = (int) (dto.getCloseTime() * 60);
+            int duration = dto.getSampleDuration()/60;
+            int startTime = (int) (dto.getOpenTime()/60);
+            int endTime = (int) (dto.getCloseTime()/60);
             List<String> lst = new ArrayList<>();
             for (int index = startTime; index < endTime; index += duration) {
                 String time = Utils.getTimeInStr(index);
