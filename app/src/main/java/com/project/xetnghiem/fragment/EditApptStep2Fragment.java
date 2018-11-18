@@ -15,12 +15,14 @@ import com.project.xetnghiem.R;
 import com.project.xetnghiem.adapter.BookSampleAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
-import com.project.xetnghiem.api.requestObj.AppointmentRequest;
+import com.project.xetnghiem.api.requestObj.ApptCreateRequest;
+import com.project.xetnghiem.api.requestObj.ApptUpdateRequest;
 import com.project.xetnghiem.api.responseObj.ResponseMessage;
 import com.project.xetnghiem.api.services.AppointmentService;
-import com.project.xetnghiem.api.services.BookApptService;
+import com.project.xetnghiem.models.Appointment;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.Slot;
 import com.project.xetnghiem.utilities.Validation;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class EditApptStep2Fragment extends BaseFragment {
     private TextView tvDateError;
     private Button btnQuickBook;
     View mainView;
+    private Appointment modifiedAppt;
     private BookSampleAdapter adapter;
     private List<SampleDto> listSampleDto;
 
@@ -64,10 +67,11 @@ public class EditApptStep2Fragment extends BaseFragment {
 
                 adapter = new BookSampleAdapter(getContext(), listSampleDto, new BookSampleAdapter.SpinnerSelectLisenter() {
                     @Override
-                    public void onClick(String data, int sampleId) {
+                    public void onClick(Slot data, int sampleId) {
                         SampleDto dto = findInList(sampleId);
                         if (dto != null) {
-                            dto.setTimeStr(data);
+//                            dto.setSlot(data);
+                            dto.setSelectedSlotId(data.getSlotId());
                         }
                     }
                 });
@@ -77,7 +81,7 @@ public class EditApptStep2Fragment extends BaseFragment {
         return mainView;
     }
 
-    public SampleDto findInList(int sampleId){
+    public SampleDto findInList(int sampleId) {
         for (SampleDto dto : listSampleDto) {
             if (dto.getSampleId() == sampleId) {
                 return dto;
@@ -90,6 +94,10 @@ public class EditApptStep2Fragment extends BaseFragment {
         listSampleDto.clear();
         listSampleDto.addAll(list);
         adapter.notifyDataSetChanged();
+    }
+
+    public void setModifiedAppt(Appointment modifiedAppt) {
+        this.modifiedAppt = modifiedAppt;
     }
 
     @Override
@@ -106,47 +114,50 @@ public class EditApptStep2Fragment extends BaseFragment {
         listSampleBook = mainView.findViewById(R.id.list_view_book_sample);
 
 
-
         btnQuickBook.setOnClickListener((view) -> {
             callApiBookAppointment();
         });
     }
-public void callApiBookAppointment(){
-    AppointmentRequest request = new AppointmentRequest();
-    request.setPatientId(1);
 
-    List<AppointmentRequest.SampleGettingDtos> list = new ArrayList<>();
-    for (SampleDto dto : listSampleDto) {
-        String[] dtimes = dto.getTimeStr().split("-");
-        AppointmentRequest.SampleGettingDtos dtos = new AppointmentRequest.SampleGettingDtos();
-        String dateFormat = dto.getDateStr();
-        List<Integer> listIdLabTests = new ArrayList<>();
-        for (LabTest labTest : dto.getLabTests()) {
-            listIdLabTests.add(labTest.getLabTestId());
+    public void callApiBookAppointment() {
+        ApptUpdateRequest request = new ApptUpdateRequest();
+        request.setPatientId(71);
+        request.setAppointmentId(modifiedAppt.getAppointmentId());
+        List<ApptCreateRequest.SampleGettingDtos> list = new ArrayList<>();
+        for (SampleDto dto : listSampleDto) {
+            ApptCreateRequest.SampleGettingDtos dtos = new ApptCreateRequest.SampleGettingDtos();
+            String dateFormat = dto.getDateStr();
+            List<Integer> listIdLabTests = new ArrayList<>();
+            for (LabTest labTest : dto.getLabTests()) {
+                listIdLabTests.add(labTest.getLabTestId());
+            }
+//            dtos.setStartTime(dateFormat + " " + dtimes[0].trim());
+//            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
+            dtos.setLabTestIds(listIdLabTests);
+            dtos.setSampleId(dto.getSampleId());
+            dtos.setGetttingDate(dto.getDateStr());
+            dtos.setSlotId(dto.getSelectedSlotId());
+            list.add(dtos);
         }
-        dtos.setStartTime(dateFormat +" "+ dtimes[0].trim());
-        dtos.setStartTime(dateFormat +" "+ dtimes[1].trim());
-        dtos.setLabTestIds(listIdLabTests);
-        dtos.setSampleId(dto.getSampleId());
-        list.add(dtos);
+        request.setList(list);
+
+        AppointmentService service = APIServiceManager.getService(AppointmentService.class);
+        service.updateAppointment(request).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MySingleObserver<ResponseMessage>(this) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onResponseSuccess(Response<ResponseMessage> response) {
+                        int a = 1;
+                        getActivity().finish();
+                    }
+                });
     }
-    request.setList(list);
 
-     AppointmentService service = APIServiceManager.getService(AppointmentService.class);
-    service.updateAppointment(request).subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new MySingleObserver<ResponseMessage>(this) {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                protected void onResponseSuccess(Response<ResponseMessage> response) {
-int a = 1;
-                }
-            });
-}
     @Override
     public void updateUIData(Object obj) {
 

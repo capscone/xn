@@ -13,6 +13,10 @@ public class Slot {
     private int startTime;
     @SerializedName("FinishTime")
     private int finishTime;
+    @SerializedName("FmStartTime")
+    private String fmStartTime;
+    @SerializedName("FmFinishTime")
+    private String fmFinishTime;
     @SerializedName("Date")
     private String date;
     @SerializedName("Quantity")
@@ -82,5 +86,21 @@ public class Slot {
 
     public void setSampleId(int sampleId) {
         this.sampleId = sampleId;
+    }
+
+    public String getFmStartTime() {
+        return fmStartTime;
+    }
+
+    public void setFmStartTime(String fmStartTime) {
+        this.fmStartTime = fmStartTime;
+    }
+
+    public String getFmFinishTime() {
+        return fmFinishTime;
+    }
+
+    public void setFmFinishTime(String fmFinishTime) {
+        this.fmFinishTime = fmFinishTime;
     }
 }

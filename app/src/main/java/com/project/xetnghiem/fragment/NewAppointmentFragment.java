@@ -72,12 +72,10 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
         }
         ///test
         SwipeMenuCreator creator = new SwipeMenuCreator() {
-
             @Override
             public void create(SwipeMenu menu) {
                 switch (menu.getViewType()) {
                     case AppointmentHeaderAdapter.TYPE_ITEM:
-
                         break;
                     case AppointmentHeaderAdapter.TYPE_SEPARATOR:
                         // create "open" item
@@ -110,7 +108,6 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
                         // create menu of type 1
                         break;
                 }
-
             }
         };
 
@@ -207,24 +204,6 @@ public class NewAppointmentFragment extends BaseFragment implements BaseContext 
                                     listAppt.addAll(appointment.getListApptDetail());
                                 }
                             }
-//                            Collections.sort(listAppt, new AppointmentDetailSort());
-//                            int i = listAppt.size() - 1;
-//                            AppointmentDetail prev = listAppt.get(i);
-//                            AppointmentDetail crr = null;
-//                            do {
-//                                i--;
-//                                String prvFormat =  prev.getGettingDate( );
-//                                if (i < 0) {
-//                                    listAppt.add(i + 1, new AppointmentDetail(true, prvFormat));
-//                                    break;
-//                                }
-//                                crr = listAppt.get(i);
-//                                String crrFormat =  crr.getGettingDate( );
-//                                if (!prvFormat.equals(crrFormat)) {
-//                                    listAppt.add(i + 1, new AppointmentDetail(true, prvFormat));
-//                                }
-//                                prev = crr;
-//                            } while (i >= 0);
                             adapter.notifyDataSetChanged();
                         }
                     }

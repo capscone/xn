@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.Slot;
 import com.project.xetnghiem.utilities.DateTimeFormat;
 import com.project.xetnghiem.utilities.DateUtils;
 import com.project.xetnghiem.utilities.Utils;
@@ -118,14 +119,17 @@ public class BookSampleAdapter extends BaseAdapter {
                 String tmp = time + " - " + time2;
                 lst.add(tmp);
             }
-
-            TimeSpinnerAdapter adapter = new TimeSpinnerAdapter(context, lst);
+if(dto.getSlotDtos() == null){
+                int b = 1;
+}
+            TimeSpinnerAdapter adapter = new TimeSpinnerAdapter(context, dto.getSlotDtos());
             holder.spnTime.setAdapter(adapter);
+            holder.spnTime.setSelection(adapter.getPosition(dto.getSelectedSlotId()));
             holder.spnTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    lisenter.onClick((String) adapter.getItem(i), dto.getSampleId());
+                    lisenter.onClick((Slot ) adapter.getItem(i), dto.getSampleId());
                 }
 
                 @Override
@@ -147,7 +151,7 @@ public class BookSampleAdapter extends BaseAdapter {
     SpinnerSelectLisenter lisenter;
 
     public interface SpinnerSelectLisenter {
-        void onClick(String data, int sampleId);
+        void onClick(Slot data, int sampleId);
     }
 
 }

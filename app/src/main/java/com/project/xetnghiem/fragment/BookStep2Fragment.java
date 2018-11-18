@@ -1,13 +1,9 @@
 package com.project.xetnghiem.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +12,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.google.android.gms.common.api.internal.BaseImplementation;
 import com.project.xetnghiem.R;
-import com.project.xetnghiem.activities.BookApptActivity;
 import com.project.xetnghiem.adapter.BookSampleAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
-import com.project.xetnghiem.api.requestObj.AppointmentRequest;
+import com.project.xetnghiem.api.requestObj.ApptCreateRequest;
 import com.project.xetnghiem.api.services.BookApptService;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
@@ -79,10 +72,10 @@ public class BookStep2Fragment extends BaseFragment {
 
                 adapter = new BookSampleAdapter(getContext(), listSampleDto, new BookSampleAdapter.SpinnerSelectLisenter() {
                     @Override
-                    public void onClick(String data, int sampleId) {
+                    public void onClick(Slot data, int sampleId) {
                         SampleDto dto = findInList(sampleId);
                         if (dto != null) {
-                            dto.setTimeStr(data);
+//                            dto.setTimeStr(data);
                         }
                     }
                 });
@@ -125,7 +118,7 @@ public class BookStep2Fragment extends BaseFragment {
         btnQuickBook = mainView.findViewById(R.id.btn_book);
         listSampleBook = mainView.findViewById(R.id.list_view_book_sample);
         txtDate = mainView.findViewById(R.id.txt_sample_date);
-        txtTime = mainView.findViewById(R.id.txt_sample_time);
+//        txtTime = mainView.findViewById(R.id.txt_sample_time);
 
         btnQuickBook.setOnClickListener((view) -> {
             callApiBookAppointment();
@@ -166,20 +159,20 @@ public class BookStep2Fragment extends BaseFragment {
     }
 
     public void callApiBookAppointment() {
-        AppointmentRequest request = new AppointmentRequest();
-        request.setPatientId(1);
+        ApptCreateRequest request = new ApptCreateRequest();
+        request.setPatientId(71);
 
-        List<AppointmentRequest.SampleGettingDtos> list = new ArrayList<>();
+        List<ApptCreateRequest.SampleGettingDtos> list = new ArrayList<>();
         for (SampleDto dto : listSampleDto) {
             String[] dtimes = dto.getTimeStr().split("-");
-            AppointmentRequest.SampleGettingDtos dtos = new AppointmentRequest.SampleGettingDtos();
+            ApptCreateRequest.SampleGettingDtos dtos = new ApptCreateRequest.SampleGettingDtos();
             String dateFormat = dto.getDateStr();
             List<Integer> listIdLabTests = new ArrayList<>();
             for (LabTest labTest : dto.getLabTests()) {
                 listIdLabTests.add(labTest.getLabTestId());
             }
-            dtos.setStartTime(dateFormat + " " + dtimes[0].trim());
-            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
+//            dtos.setStartTime(dateFormat + " " + dtimes[0].trim());
+//            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
             dtos.setLabTestIds(listIdLabTests);
             dtos.setSampleId(dto.getSampleId());
             list.add(dtos);

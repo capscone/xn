@@ -11,22 +11,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txt_sample_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@id/txt_sample_time"
-            android:text="20/10/2018" />
-
-        <TextView
-            android:id="@+id/txt_sample_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="20dp"
-            android:text="10:10" />
-
         <ListView
             android:id="@+id/list_view_book_sample"
             android:layout_width="match_parent"

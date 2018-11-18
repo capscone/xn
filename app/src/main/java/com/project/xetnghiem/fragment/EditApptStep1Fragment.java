@@ -14,6 +14,8 @@ import com.project.xetnghiem.adapter.SampleHeaderAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.services.SampleService;
+import com.project.xetnghiem.models.Appointment;
+import com.project.xetnghiem.models.AppointmentDetail;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
 
@@ -35,6 +37,7 @@ public class EditApptStep1Fragment extends BaseFragment {
     private List<SampleDto> listTmpSampleDto;
     private DataListener dataListener = null;
     private ArrayList<Integer> listLabTestIds;
+    private Appointment modifiedAppointment;
     private Disposable apiDisposable;
     private List<SampleDto> listSampleDto;
 
@@ -164,6 +167,23 @@ public class EditApptStep1Fragment extends BaseFragment {
         listLabTestIds = list;
     }
 
+    public void setModifiedAppt(Appointment modifiedAppointment) {
+        this.modifiedAppointment = modifiedAppointment;
+//        modifiedAppointment.getListApptDetail();
+//        for (AppointmentDetail ad : modifiedAppointment.getListApptDetail()) {
+//            ad.get
+//        }
+    }
+
+    public AppointmentDetail isDtoModified(int sampleId) {
+        for (AppointmentDetail ad : modifiedAppointment.getListApptDetail()) {
+            if (ad.getSampleId() == sampleId) {
+                return ad;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void callDataResource() {
         showLoading();
@@ -187,6 +207,10 @@ public class EditApptStep1Fragment extends BaseFragment {
                         listSampleDto.addAll(sampleDtoResponse.body());
                         listLabTest.clear();
                         for (SampleDto dto : lst) {
+                            AppointmentDetail ad = null;
+                            if ((ad = isDtoModified(dto.getSampleId())) != null) {
+                                dto.setSelectedSlotId(ad.getSlotId());
+                            }
                             String sampleName = dto.getSampleName();
                             listLabTest.add(new LabTest(true, sampleName));
                             for (LabTest labTest : dto.getLabTests()) {

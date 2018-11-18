@@ -18,7 +18,7 @@ public class AppConst {
     public final static String GENDER_FEMALE = "FEMALE";
     public final static String GENDER_OTHER = "OTHER";
 
-    public final static int DEFAULT_BIRTHDAY_YEAR= 2000;
+    public final static int DEFAULT_BIRTHDAY_YEAR = 2000;
     public final static int REQUEST_CREATENEW_PATIENT = 909;
 
     public final static String USER_OBJ = "USER_OBJ";
@@ -46,5 +46,6 @@ public class AppConst {
     public final static String TOPIC_RELOAD_APPOINTMENT = "TOPIC_RELOAD_APPOINTMENT";
     public final static String PREF_NAME_SAMPLE_LIST = "PROMOTION";
     public final static String KEY_SAMPLE_LIST = "TOPIC_RELOAD_APPOINTMENT";
-
+    public final static String APPOINTMENT_STATUS_NEW = "NEW";
+    public final static String APPOINTMENT_STATUS_OLD = "NEW";
 }

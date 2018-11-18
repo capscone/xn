@@ -1,9 +1,8 @@
-/*
+package com.project.xetnghiem.utilities;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.project.xetnghiem.utilities;
 
 import com.project.xetnghiem.models.SampleDto;
 import com.project.xetnghiem.models.Slot;
@@ -18,12 +17,12 @@ import java.util.List;
 public class AppointmentSuggestor {
 
     private List<Slot> availableSlots;
-    private String comingDate;//yyyy-MM-dd
+    private String comingDate;
     private int comingTime;
     private List<SampleDto> chosedSamples;
 
     private final int MAX = 24 * 60 * 60; // total wait time is never exceed 24 hours
-    private List<List<Slot>> A;
+    private List<List<Slot>> A = new ArrayList<>();
     private List<List<Slot>> tmpA;
     private boolean[] dA; // dA[i] = true/false;
     private int n;
@@ -107,7 +106,7 @@ public class AppointmentSuggestor {
                 }
                 dp.get(i).add(dpItem);
                 trace.get(i).add(traceItem);
-            } // end for j
+            } // end for j 
         } // end for i
 
         // CALC RES
@@ -161,7 +160,7 @@ public class AppointmentSuggestor {
     }
 
     public List<Slot> CalcTheBestTour(List<Slot> availableSlots, String comingDate,
-            int comingTime, List<SampleDto> chosedSamples) {
+                                        int comingTime, List<SampleDto> chosedSamples) {
         // init fields
         this.availableSlots = availableSlots;
         this.comingDate = comingDate;
@@ -173,5 +172,5 @@ public class AppointmentSuggestor {
 
         return result;
     }
-    
+
 }

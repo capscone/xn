@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
         gridTreatHistory.setOnClickListener((v)->{
             redirectToActivity(BookApptActivity.class, false);});
         gridApptHistory.setOnClickListener((v)->{
-            redirectToActivity(AppointmentListActivity.class, false);});
+            redirectToActivity(ShowAppointmentActivity.class, false);});
         gridResult.setOnClickListener((v)->{
             redirectToActivity(FeedbackActivity.class, false);});
 

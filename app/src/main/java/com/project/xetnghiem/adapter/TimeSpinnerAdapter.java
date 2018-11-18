@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.project.xetnghiem.models.District;
 import com.project.xetnghiem.models.SampleDto;
+import com.project.xetnghiem.models.Slot;
 
 import java.util.List;
 
-public class TimeSpinnerAdapter extends ArrayAdapter {
-    public TimeSpinnerAdapter(@NonNull Context context,  List<String> list) {
+public class TimeSpinnerAdapter extends ArrayAdapter { List<Slot> list;
+    public TimeSpinnerAdapter(@NonNull Context context,  List<Slot> list) {
         super(context,android.R.layout.simple_spinner_item, list);
+        this.list = list;
     }
 
     @NonNull
@@ -24,6 +26,15 @@ public class TimeSpinnerAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         return getCustomView(position, convertView, parent);
+    }
+
+    public int getPosition(@Nullable int slotId) {
+        for(Slot s : list){
+            if(s.getSlotId() == slotId){
+                return super.getPosition(s);
+            }
+        }
+        return -1;
     }
 
     @Nullable
@@ -37,9 +48,9 @@ public class TimeSpinnerAdapter extends ArrayAdapter {
                 .inflate(android.R.layout.simple_spinner_item, parent, false);
         TextView textView = v.findViewById(android.R.id.text1);
 //        SampleDto d = (SampleDto) getItem(position);
-        String crrRow =(String) getItem(position);
+        Slot crrRow =(Slot) getItem(position);
         if (crrRow != null) {
-            textView.setText(crrRow);
+            textView.setText(crrRow.getFmStartTime() + " - " + crrRow.getFmFinishTime());
         }
         return v;
     }

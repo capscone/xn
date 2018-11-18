@@ -19,9 +19,15 @@ public class SampleDto {
     private float openTime;
     @SerializedName("CloseTime")
     private float closeTime;
+    @SerializedName("Description")
+    private String description;
+    @SerializedName("SlotDtos")
+    private List<Slot> slotDtos;
+    @SerializedName("SlotId")
+    private int selectedSlotId;
 
-private String timeStr;
-private String dateStr;
+    private String timeStr;
+    private String dateStr;
 
     public int getSampleId() {
         return sampleId;
@@ -93,5 +99,29 @@ private String dateStr;
 
     public void setSampleGroupId(int sampleGroupId) {
         this.sampleGroupId = sampleGroupId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Slot> getSlotDtos() {
+        return slotDtos;
+    }
+
+    public void setSlotDtos(List<Slot> slotDtos) {
+        this.slotDtos = slotDtos;
+    }
+
+    public int getSelectedSlotId() {
+        return selectedSlotId;
+    }
+
+    public void setSelectedSlotId(int selectedSlotId) {
+        this.selectedSlotId = selectedSlotId;
     }
 }

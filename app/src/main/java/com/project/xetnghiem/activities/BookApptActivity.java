@@ -1,64 +1,29 @@
 package com.project.xetnghiem.activities;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.telephony.TelephonyManager;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.google.android.gms.common.api.internal.ApiExceptionMapper;
 import com.project.xetnghiem.R;
 import com.project.xetnghiem.adapter.CustomViewPager;
 import com.project.xetnghiem.api.APIServiceManager;
-import com.project.xetnghiem.api.MySingleObserver;
-import com.project.xetnghiem.api.requestObj.AppointmentRequest;
-import com.project.xetnghiem.api.responseObj.SuccessResponse;
-import com.project.xetnghiem.api.services.BookApptService;
-import com.project.xetnghiem.api.services.SampleService;
 import com.project.xetnghiem.api.services.SlotService;
-import com.project.xetnghiem.api.services.UserService;
 import com.project.xetnghiem.fragment.BookStep1Fragment;
 import com.project.xetnghiem.fragment.BookStep2Fragment;
-import com.project.xetnghiem.fragment.NewAppointmentFragment;
-import com.project.xetnghiem.fragment.OldAppointmentFragment;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
-import com.project.xetnghiem.models.SampleSlotWrapper;
 import com.project.xetnghiem.models.Slot;
-import com.project.xetnghiem.utilities.AppConst;
-import com.project.xetnghiem.utilities.CoreManager;
-import com.project.xetnghiem.utilities.DateTimeFormat;
-import com.project.xetnghiem.utilities.DateUtils;
-import com.project.xetnghiem.utilities.Utils;
-import com.project.xetnghiem.utilities.Validation;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.internal.Util;
 import retrofit2.Response;
 
 public class BookApptActivity extends BaseActivity implements BookStep1Fragment.DataListener {

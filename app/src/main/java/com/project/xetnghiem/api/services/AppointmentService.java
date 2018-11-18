@@ -1,6 +1,6 @@
 package com.project.xetnghiem.api.services;
 
-import com.project.xetnghiem.api.requestObj.AppointmentRequest;
+import com.project.xetnghiem.api.requestObj.ApptUpdateRequest;
 import com.project.xetnghiem.api.responseObj.ResponseMessage;
 import com.project.xetnghiem.models.Appointment;
 
@@ -15,6 +15,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface AppointmentService {
+
+    @GET("api/appointment/get-appointments-by-patient-id")
+    Single<Response<List<Appointment>>> getPatientAppointment(@Query("patientId") int patientId);
     @GET("api/appointment/get-new-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getNewApptByPatientId(@Query("patientId") int patientId);
 
@@ -25,5 +28,5 @@ public interface AppointmentService {
     Single<Response<ResponseMessage>> cancelAppointment(@Query("appointmentCode") String appointmentCode);
 
     @PUT("api/appointment/update-appointment")
-    Single<Response<ResponseMessage>> updateAppointment(@Body AppointmentRequest appointment);
+    Single<Response<ResponseMessage>> updateAppointment(@Body ApptUpdateRequest appointment);
 }

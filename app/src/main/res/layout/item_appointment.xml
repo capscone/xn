@@ -4,25 +4,36 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-    <!--<TextView-->
-        <!--android:id="@+id/txt_sample_type"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:text="sample type" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/txt_start_time"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/txt_sample_type"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:text="start time" />-->
-    <ListView
-        android:id="@+id/list_view_apointment"
+    <TextView
+        android:id="@+id/txt_appointment_code"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:text="appointment code" />
+
+    <TextView
+        android:id="@+id/txt_purpose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@id/txt_appointment_code"
+        android:text="purpose" />
+
+    <TextView
+        android:id="@+id/txt_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@id/txt_appointment_code"
+        android:text="doctor name" />
+
+    <TextView
+        android:id="@+id/txt_conclusion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@id/txt_doctor"
+        android:text="conclusion" />
+
 </RelativeLayout>

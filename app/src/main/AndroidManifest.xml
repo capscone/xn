@@ -49,8 +49,9 @@
             android:name=".activities.AppointmentListActivity"
             android:label="@string/title_activity_appointment_list"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.TestActivity"></activity>
-        <activity android:name=".activities.EditAppointmentActivity"></activity>
+        <activity android:name=".activities.TestActivity" />
+        <activity android:name=".activities.EditAppointmentActivity" />
+        <activity android:name=".activities.ShowAppointmentActivity"></activity>
     </application>
 
 </manifest>
