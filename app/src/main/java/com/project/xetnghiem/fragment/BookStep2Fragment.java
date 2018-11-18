@@ -180,6 +180,7 @@ public class BookStep2Fragment extends BaseFragment {
         }
         request.setList(list);
 
+        showLoading();
         BookApptService service = APIServiceManager.getService(BookApptService.class);
         service.bookAppointment(request).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

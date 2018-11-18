@@ -140,7 +140,7 @@ public class EditApptStep2Fragment extends BaseFragment {
             list.add(dtos);
         }
         request.setList(list);
-
+showLoading();
         AppointmentService service = APIServiceManager.getService(AppointmentService.class);
         service.updateAppointment(request).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
