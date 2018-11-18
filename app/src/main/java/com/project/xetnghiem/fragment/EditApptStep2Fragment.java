@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.xetnghiem.R;
-import com.project.xetnghiem.adapter.BookSampleAdapter;
+import com.project.xetnghiem.adapter.EditSampleAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.ApptCreateRequest;
@@ -45,7 +45,7 @@ public class EditApptStep2Fragment extends BaseFragment {
     private Button btnQuickBook;
     View mainView;
     private Appointment modifiedAppt;
-    private BookSampleAdapter adapter;
+    private EditSampleAdapter adapter;
     private List<SampleDto> listSampleDto;
 
     @Override
@@ -65,7 +65,7 @@ public class EditApptStep2Fragment extends BaseFragment {
         if (adapter == null) {
             if (getContext() != null) {
 
-                adapter = new BookSampleAdapter(getContext(), listSampleDto, new BookSampleAdapter.SpinnerSelectLisenter() {
+                adapter = new EditSampleAdapter(getContext(), listSampleDto, new EditSampleAdapter.SpinnerSelectLisenter() {
                     @Override
                     public void onClick(Slot data, int sampleId) {
                         SampleDto dto = findInList(sampleId);

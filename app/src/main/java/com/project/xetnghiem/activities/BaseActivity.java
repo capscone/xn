@@ -85,12 +85,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         txtNumNotification = toolbar.findViewById(R.id.txt_noti_number);
         btnNotification = toolbar.findViewById(R.id.btn_toolbar_notification);
         btnNotification.setOnClickListener((v) -> {
-            if (this instanceof ResultActivity) {
+            if (this instanceof AppointmentResultActivity) {
                 //refresh
                 logInfo("SetToolbar method", this.getClass().getSimpleName());
             } else {
                 btnNotification.setEnabled(false);
-                redirectToActivityWithTop(ResultActivity.class, false);
+                redirectToActivityWithTop(AppointmentResultActivity.class, false);
                 clearNotiNumber();
                 hideNotiNumber();
                 logInfo("SetToolbar method", this.getClass().getSimpleName());
@@ -102,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         } else {
             btnAvatar.setVisibility(View.VISIBLE);
         }
-        if (this instanceof LoginActivity || this instanceof RegisterActivity || this instanceof ResultActivity) {
+        if (this instanceof LoginActivity || this instanceof RegisterActivity || this instanceof AppointmentResultActivity) {
             btnNotification.setVisibility(View.INVISIBLE);
             hideNotiNumber();
         } else {

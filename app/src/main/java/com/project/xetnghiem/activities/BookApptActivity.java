@@ -176,7 +176,9 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
         finish();
         return true;
     }
-
+//call when user click on checkbox, it will add data to current list lay on the BookAppActivity
+    //       FragmentStep1  ->     FragmentStep2
+    //               BookAppActivity
     @Override
     public void onDateReceiver(List<LabTest> data, List<SampleDto> listTmpSampleDto) {
         tmpLabTest.clear();
@@ -193,6 +195,8 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
             d.setOpenTime(dto.getOpenTime());
             d.setCloseTime(dto.getCloseTime());
             d.setSampleName(dto.getSampleName());
+            d.setSlotDtos(dto.getSlotDtos());
+            d.setSelectedSlotId(dto.getSelectedSlotId());
             this.listTmpSampleDto.add(d);
         }
         for (SampleDto dto : this.listTmpSampleDto) {

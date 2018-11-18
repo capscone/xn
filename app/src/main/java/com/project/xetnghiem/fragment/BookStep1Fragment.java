@@ -186,7 +186,9 @@ public class BookStep1Fragment extends BaseFragment {
     @Override
     protected void callDataResource() {
         if(getContext()==null)return;
-        SampleWrapper sampleWrapper = Utils.getInSharePref(getContext(), SampleWrapper.class, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+//      //  SampleWrapper sampleWrapper = Utils.getInSharePref(getContext(), SampleWrapper.class, AppConst.PREF_NAME_SAMPLE_LIST, AppConst.KEY_SAMPLE_LIST);
+
+        SampleWrapper sampleWrapper = null;
         if (sampleWrapper !=null && sampleWrapper.getList() != null && sampleWrapper.getList().size() > 0) {
             listSampleDto.clear();
             listSampleDto.addAll(sampleWrapper.getList() );

@@ -37,6 +37,7 @@ public class ShowAppointmentActivity extends BaseActivity {
     private final int DELETE_INDEX = 1;
     private final int SHOW_INDEX = 2;
     public static final String LIST_LABTEST_ID = "LIST_LABTEST_ID";
+    public static final String APPT_ID = "APPT_ID";
     public static final String LIST_APPT_DETAIL = "LIST_APPT_DETAIL";
 
     @Override
@@ -62,6 +63,7 @@ public class ShowAppointmentActivity extends BaseActivity {
                         editItem.setWidth((int) Utils.convertDpToPixel((float) 90, ShowAppointmentActivity.this));
                         editItem.setTitleSize(18);
                         editItem.setIcon(R.drawable.ic_edit_black_24dp);
+                        editItem.setId(EDIT_INDEX);
                         menu.addMenuItem(editItem);
 
                         SwipeMenuItem deleteItem = new SwipeMenuItem(
@@ -69,6 +71,7 @@ public class ShowAppointmentActivity extends BaseActivity {
                         deleteItem.setBackground(new ColorDrawable(Color.RED));
                         deleteItem.setWidth((int) Utils.convertDpToPixel((float) 90, ShowAppointmentActivity.this));
                         deleteItem.setIcon(R.drawable.ic_delete_black_24dp);
+                        deleteItem.setId(DELETE_INDEX);
                         menu.addMenuItem(deleteItem);
                         break;
                     case AppointmentAdapter.TYPE_OLD:
@@ -78,6 +81,7 @@ public class ShowAppointmentActivity extends BaseActivity {
                         showItem.setWidth((int) Utils.convertDpToPixel((float) 90, ShowAppointmentActivity.this));
                         showItem.setTitleSize(18);
                         showItem.setIcon(R.drawable.ic_remove_red_eye_black_24dp);
+                        showItem.setId(SHOW_INDEX);
                         menu.addMenuItem(showItem);
                         break;
                 }
@@ -89,12 +93,13 @@ public class ShowAppointmentActivity extends BaseActivity {
         swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
+                Appointment appt = listAppointment.get(position);
+
+                switch ( menu.getMenuItem(index).getId()) {
                     case EDIT_INDEX:
                         Intent intent = new Intent(ShowAppointmentActivity.this,
                                 EditAppointmentActivity.class);
                         ArrayList<Integer> listLabtestId = new ArrayList<>();
-                        Appointment appt = listAppointment.get(position);
                         for (AppointmentDetail d : appt.getListApptDetail()) {
                             if (d.getLabTestIds() != null) {
                                 listLabtestId.addAll(d.getLabTestIds());
@@ -112,6 +117,10 @@ public class ShowAppointmentActivity extends BaseActivity {
                         showMessage("delete");
                         break;
                     case SHOW_INDEX:
+                        Intent intentShow = new Intent(ShowAppointmentActivity.this,
+                                AppointmentResultActivity.class);
+                        intentShow.putExtra(APPT_ID, appt.getAppointmentId());
+                        startActivity(intentShow);
                         showMessage("SHOW_INDEX");
                         break;
                 }

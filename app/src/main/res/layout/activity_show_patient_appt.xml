@@ -10,11 +10,6 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aaaaa"
-        />
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/swipe_list_appointment"
         android:layout_width="match_parent"

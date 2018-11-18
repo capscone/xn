@@ -42,7 +42,7 @@
         </service>
 
         <activity android:name=".activities.AccountActivity" />
-        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.AppointmentResultActivity" />
         <activity android:name=".activities.ResultHistoryActivity" />
         <activity android:name=".activities.AppointmentActivity" />
         <activity

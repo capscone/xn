@@ -76,6 +76,7 @@ public class BookStep2Fragment extends BaseFragment {
                         SampleDto dto = findInList(sampleId);
                         if (dto != null) {
 //                            dto.setTimeStr(data);
+                            dto.setSelectedSlotId(data.getSlotId());
                         }
                     }
                 });
@@ -164,9 +165,7 @@ public class BookStep2Fragment extends BaseFragment {
 
         List<ApptCreateRequest.SampleGettingDtos> list = new ArrayList<>();
         for (SampleDto dto : listSampleDto) {
-            String[] dtimes = dto.getTimeStr().split("-");
             ApptCreateRequest.SampleGettingDtos dtos = new ApptCreateRequest.SampleGettingDtos();
-            String dateFormat = dto.getDateStr();
             List<Integer> listIdLabTests = new ArrayList<>();
             for (LabTest labTest : dto.getLabTests()) {
                 listIdLabTests.add(labTest.getLabTestId());
@@ -175,6 +174,8 @@ public class BookStep2Fragment extends BaseFragment {
 //            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
             dtos.setLabTestIds(listIdLabTests);
             dtos.setSampleId(dto.getSampleId());
+            dtos.setGetttingDate(dto.getDateStr());
+            dtos.setSlotId(dto.getSelectedSlotId());
             list.add(dtos);
         }
         request.setList(list);

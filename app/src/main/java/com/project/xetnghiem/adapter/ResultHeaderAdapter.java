@@ -39,7 +39,7 @@ public class ResultHeaderAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return list.get(i).getLabTestingIndexId();
     }
 
     @Override
@@ -55,13 +55,13 @@ public class ResultHeaderAdapter extends BaseAdapter {
     String tmp = "";
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         ResultHeaderAdapter.MyViewHolder holder = null;
-        ResultView resultView = (ResultView) getItem(i);
+        ResultView resultView = (ResultView) getItem(position);
 //        String dateAfterFormat = DateUtils.changeDateFormat(date, DateTimeFormat.TIME_DB_1, DateTimeFormat.TIME_APP_1);
-        int rowType = getItemViewType(i);
+        int rowType = getItemViewType(position);
 
-        if (view == null) {
+//        if (view == null) {
             holder = new ResultHeaderAdapter.MyViewHolder();
             switch (rowType) {
                 case TYPE_ITEM:
@@ -69,44 +69,48 @@ public class ResultHeaderAdapter extends BaseAdapter {
                     holder.txtLow = view.findViewById(R.id.txt_lower_result);
                     holder.txtHigh = view.findViewById(R.id.txt_high_result);
                     holder.txtNormal = view.findViewById(R.id.txt_normal_result);
-                    holder.txtName = view.findViewById(R.id.txt_result_name);
+                    holder.txtIndexName = view.findViewById(R.id.txt_result_name);
                     holder.txtRange = view.findViewById(R.id.txt_result_range);
                     break;
                 case TYPE_SEPARATOR:
                     view = inflater.inflate(R.layout.item_result_header, null);
                     view.setEnabled(false);
-                    holder.txtName = view.findViewById(R.id.txt_headername_result);
+                    holder.txtHeaderName = view.findViewById(R.id.txt_headername_result);
                     break;
             }
-            view.setTag(holder);
-        } else {
-            holder = (ResultHeaderAdapter.MyViewHolder) view.getTag();
+//            view.setTag(holder);
+//        } else {
+//            holder = (ResultHeaderAdapter.MyViewHolder) view.getTag();
+//        }
+        if (holder.txtIndexName != null) {
+            holder.txtIndexName.setText(resultView.getIndexName());
         }
-        if (holder.txtName != null) {
-            holder.txtName.setText(resultView.getName());
+        if (holder.txtHeaderName != null) {
+            holder.txtHeaderName.setText(resultView.getHeaderName());
         }
-        if (resultView.getLowNormalHigh().equals("L")) {
+
+        if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("L")) {
             if (holder.txtLow != null) {
-                holder.txtLow.setText(resultView.getValue());
+                holder.txtLow.setText(resultView.getIndexValue());
             }
-        } else if (resultView.getLowNormalHigh().equals("N")) {
+        } else if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("N")) {
             if (holder.txtNormal != null) {
-                holder.txtNormal.setText(resultView.getValue());
+                holder.txtNormal.setText(resultView.getIndexValue());
             }
-        } else if (resultView.getLowNormalHigh().equals("H")) {
+        } else if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("H")) {
             if (holder.txtHigh != null) {
-                holder.txtHigh.setText(resultView.getValue());
+                holder.txtHigh.setText(resultView.getIndexValue());
             }
         }
         if (holder.txtRange != null) {
-            holder.txtRange.setOnClickListener((v) -> {
-            });
+            holder.txtRange.setText(resultView.getNormalRange());
         }
         return view;
     }
 
     public class MyViewHolder {
-        public TextView txtName;
+        public TextView txtIndexName;
+        public TextView txtHeaderName;
         public TextView txtLow;
         public TextView txtNormal;
         public TextView txtHigh;
