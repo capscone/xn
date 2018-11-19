@@ -18,6 +18,7 @@ public interface AppointmentService {
 
     @GET("api/appointment/get-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getPatientAppointment(@Query("patientId") int patientId);
+
     @GET("api/appointment/get-new-appointments-by-patient-id")
     Single<Response<List<Appointment>>> getNewApptByPatientId(@Query("patientId") int patientId);
 
@@ -26,6 +27,9 @@ public interface AppointmentService {
 
     @DELETE("api/appointment/delete-appointment")
     Single<Response<ResponseMessage>> cancelAppointment(@Query("appointmentCode") String appointmentCode);
+
+    @DELETE("api/appointment/delete-appointment")
+    Single<Response<ResponseMessage>> deleteAppointment(@Query("appointmentId") int apptId);
 
     @PUT("api/appointment/update-appointment")
     Single<Response<ResponseMessage>> updateAppointment(@Body ApptUpdateRequest appointment);

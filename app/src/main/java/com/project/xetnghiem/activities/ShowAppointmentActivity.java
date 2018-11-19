@@ -15,6 +15,8 @@ import com.project.xetnghiem.adapter.AppointmentAdapter;
 import com.project.xetnghiem.adapter.AppointmentHeaderAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
+import com.project.xetnghiem.api.responseObj.ResponseMessage;
+import com.project.xetnghiem.api.responseObj.SuccessResponse;
 import com.project.xetnghiem.api.services.AppointmentService;
 import com.project.xetnghiem.models.Appointment;
 import com.project.xetnghiem.models.AppointmentDetail;
@@ -95,7 +97,7 @@ public class ShowAppointmentActivity extends BaseActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 Appointment appt = listAppointment.get(position);
 
-                switch ( menu.getMenuItem(index).getId()) {
+                switch (menu.getMenuItem(index).getId()) {
                     case EDIT_INDEX:
                         Intent intent = new Intent(ShowAppointmentActivity.this,
                                 EditAppointmentActivity.class);
@@ -113,13 +115,13 @@ public class ShowAppointmentActivity extends BaseActivity {
                         startActivity(intent);
                         break;
                     case DELETE_INDEX:
+                        deleteAppt(appt.getAppointmentId());
                         break;
                     case SHOW_INDEX:
                         Intent intentShow = new Intent(ShowAppointmentActivity.this,
                                 AppointmentResultActivity.class);
                         intentShow.putExtra(APPT_ID, appt.getAppointmentId());
                         startActivity(intentShow);
-                        showMessage("SHOW_INDEX");
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -149,8 +151,34 @@ public class ShowAppointmentActivity extends BaseActivity {
 
     }
 
+    public void deleteAppt(int appointmentId) {
+        showLoading();
+        APIServiceManager.getService(AppointmentService.class).
+                deleteAppointment(appointmentId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MySingleObserver<ResponseMessage>(this) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onResponseSuccess(Response<ResponseMessage> response) {
+                        if (response.body().isSuccess()) {
+                            showMessage(response.body().getMessage());
+                            callDataResource();
+                        } else {
+                            showMessage(response.body().getMessage());
+                        }
+
+                    }
+                });
+    }
+
     @Override
     protected void callDataResource() {
+        showLoading();
         APIServiceManager.getService(AppointmentService.class)
                 .getPatientAppointment(71)
                 .subscribeOn(Schedulers.newThread())
