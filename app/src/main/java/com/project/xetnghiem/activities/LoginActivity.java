@@ -157,7 +157,7 @@ public class LoginActivity extends BaseActivity {
         Patient patient = new Patient();
         patient.setAddress("VIet nam");
         patient.setGender("FEMALE");
-        patient.setName("Doggy");
+        patient.setName("Pro");
         patient.setPhone("0909999999");
         patient.setId(1);
         CoreManager.setPatient(this, patient);

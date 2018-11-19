@@ -17,15 +17,15 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="20/10/2018"
-         android:layout_centerHorizontal="true"
+         android:textSize="16sp"
+         android:textColor="@color/color_black"
+         android:layout_alignLeft="@id/spn_time"
          />
     <Spinner
         android:id="@+id/spn_time"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_sample_date"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="3dp"
+        android:layout_alignParentRight="true"
         ></Spinner>
 </RelativeLayout>

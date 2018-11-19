@@ -17,9 +17,10 @@
         android:id="@+id/txt_lower_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/color_red_500"
         android:layout_toLeftOf="@id/txt_normal_result"
-        android:textStyle="bold"
-        android:text=" " />
+        android:textStyle="bold|italic"
+        android:text="  " />
 
     <TextView
         android:id="@+id/txt_normal_result"
@@ -35,7 +36,8 @@
         android:id="@+id/txt_high_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
+        android:textColor="@color/color_red_500"
         android:layout_toRightOf="@id/txt_normal_result"
         android:text=" " />
 

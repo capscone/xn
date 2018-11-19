@@ -1,6 +1,7 @@
 package com.project.xetnghiem.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,7 @@ public class ResultHeaderAdapter extends BaseAdapter {
         if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("L")) {
             if (holder.txtLow != null) {
                 holder.txtLow.setText(resultView.getIndexValue());
+                holder.txtLow.setPaintFlags(holder.txtLow.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             }
         } else if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("N")) {
             if (holder.txtNormal != null) {
@@ -100,10 +102,11 @@ public class ResultHeaderAdapter extends BaseAdapter {
         } else if (resultView.getLowNormalHigh()!= null && resultView.getLowNormalHigh().equals("H")) {
             if (holder.txtHigh != null) {
                 holder.txtHigh.setText(resultView.getIndexValue());
+                holder.txtHigh.setPaintFlags( holder.txtHigh.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             }
         }
         if (holder.txtRange != null) {
-            holder.txtRange.setText(resultView.getNormalRange());
+            holder.txtRange.setText(resultView.getNormalRange()+resultView.getUnit());
         }
         return view;
     }

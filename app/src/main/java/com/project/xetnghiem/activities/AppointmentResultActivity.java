@@ -16,7 +16,10 @@ import com.project.xetnghiem.models.Result;
 import com.project.xetnghiem.models.ResultOfAppointmentDto;
 import com.project.xetnghiem.models.ResultView;
 import com.project.xetnghiem.models.SampleGetting;
+import com.project.xetnghiem.utilities.DateTimeFormat;
+import com.project.xetnghiem.utilities.DateUtils;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class AppointmentResultActivity extends BaseActivity {
     private TextView tvTimeReg;
     private TextView tvAddress;
     private TextView tvGender;
+
     @Override
     protected int getLayoutView() {
         return R.layout.activity_appointment_result;
@@ -122,14 +126,24 @@ public class AppointmentResultActivity extends BaseActivity {
     @Override
     public void updateUIData(Object obj) {
         ResultOfAppointmentDto dto = (ResultOfAppointmentDto) obj;
-        tvAddress.setText(dto.getPatientAddress());
-        tvGender.setText(dto.getPatientGender());
-        tvName .setText(dto.getPatientName());
-        tvDateReg .setText(dto.getEnterTime());
-        tvTimeReg .setText(dto.getReturnTime());
-        tvPatientYear .setText(dto.getPatientBirthYear());
+        tvAddress.setText("Địa chỉ: " + dto.getPatientAddress());
+        tvGender.setText("Giới tính: " + getMaleInVN(dto.getPatientGender()));
+        tvName.setText("Họ tên: " + dto.getPatientName());
+        String regDate = DateUtils.changeDateFormat(dto.getEnterTime(), DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.DATE_TIME_DB_2);
+        tvDateReg.setText("Ngày ĐK: " + regDate);
+        String regTime = DateUtils.changeDateFormat(dto.getEnterTime(), DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.TIME_APP_2);
+        tvTimeReg.setText("Giờ ĐK: " + regTime);
+        tvPatientYear.setText("Năm sinh: " + dto.getPatientBirthYear());
         listResultView.clear();
         listResultView.addAll(convertToListResultView(dto));
         adapter.notifyDataSetChanged();
+    }
+
+    private String getMaleInVN(String val){
+        switch (val){
+            case "MALE":return "Nam";
+            case "FEMALE" : return "Nữ";
+            default: return "Khác";
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.project.xetnghiem.adapter.BookSampleAdapter;
 import com.project.xetnghiem.api.APIServiceManager;
 import com.project.xetnghiem.api.MySingleObserver;
 import com.project.xetnghiem.api.requestObj.ApptCreateRequest;
+import com.project.xetnghiem.api.responseObj.SuccessResponse;
 import com.project.xetnghiem.api.services.BookApptService;
 import com.project.xetnghiem.models.LabTest;
 import com.project.xetnghiem.models.SampleDto;
@@ -184,15 +185,20 @@ public class BookStep2Fragment extends BaseFragment {
         BookApptService service = APIServiceManager.getService(BookApptService.class);
         service.bookAppointment(request).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new MySingleObserver<Boolean>(this) {
+                .subscribe(new MySingleObserver<SuccessResponse>(this) {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    protected void onResponseSuccess(Response<Boolean> booleanResponse) {
-                        int a = 1;
+                    protected void onResponseSuccess(Response<SuccessResponse> response) {
+                        if (response.body().isSuccess()) {
+                            showMessage("Đặt lịch thành công.");
+                            getActivity().finish();
+                        }else{
+                            showMessage(response.body().getMessage());
+                        }
                     }
                 });
     }

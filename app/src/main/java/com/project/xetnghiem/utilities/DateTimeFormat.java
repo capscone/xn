@@ -57,9 +57,16 @@ public enum DateTimeFormat {
     /**
      * h:mm a
      */
-    TIME_APP_1 {
+    TIME_APP_2 {
         public String toString() {
             return "h:mm a";
+        }
+    }, /**
+     * h:mm a
+     */
+    TIME_APP_1 {
+        public String toString() {
+            return "h:mm";
         }
     },
     /**

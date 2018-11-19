@@ -111,10 +111,8 @@ public class ShowAppointmentActivity extends BaseActivity {
                         intent.putExtras(b);
 
                         startActivity(intent);
-                        showMessage("edit");
                         break;
                     case DELETE_INDEX:
-                        showMessage("delete");
                         break;
                     case SHOW_INDEX:
                         Intent intentShow = new Intent(ShowAppointmentActivity.this,

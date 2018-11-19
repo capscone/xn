@@ -24,44 +24,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="name" />
+            android:layout_marginTop="2dp"
+            android:text=" " />
 
         <TextView
             android:id="@+id/tv_birth_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="tv_birth_year" />
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/tv_name"
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_date_register"
             android:layout_width="wrap_content"
+            android:layout_marginTop="2dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="tv_date_register" />
+            android:layout_below="@id/tv_birth_year"
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
-            android:text="tv_address" />
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/tv_date_register"
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_birth_year"
-            android:layout_centerHorizontal="true"
-            android:text="tv_gender" />
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/tv_address"
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_time_register"
             android:layout_width="wrap_content"
+            android:layout_marginTop="2dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_date_register"
-            android:layout_alignParentRight="true"
-            android:text="tv_time_register" />
+            android:layout_below="@id/tv_gender"
+            android:text="" />
 
 
     </RelativeLayout>

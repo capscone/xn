@@ -56,12 +56,16 @@ public class MainActivity extends BaseActivity {
             redirectToActivity(AccountActivity.class, false);
 
         });
-        gridTreatHistory.setOnClickListener((v)->{
-            redirectToActivity(BookApptActivity.class, false);});
+        gridTreatHistory.setOnClickListener((v)-> {
+//            redirectToActivity(BookApptActivity.class, false);});
+                    showMessage("Lịch sử xét nghiệm");
+                });
         gridApptHistory.setOnClickListener((v)->{
             redirectToActivity(ShowAppointmentActivity.class, false);});
         gridResult.setOnClickListener((v)->{
+            showMessage("Kết quả xn");
             redirectToActivity(FeedbackActivity.class, false);});
+
 
         btnBack.setOnClickListener(listener);
     }
