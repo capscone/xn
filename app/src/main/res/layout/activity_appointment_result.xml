@@ -77,10 +77,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text="Tên xét nghiệm"
+            android:inputType="textMultiLine"
+            android:minLines="2"
             android:textStyle="bold" />
 
         <TextView
@@ -91,10 +93,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:inputType="textMultiLine"
             android:text="Chỉ số bình thường"
+            android:minLines="2"
             android:textStyle="bold" />
     </RelativeLayout>
 
