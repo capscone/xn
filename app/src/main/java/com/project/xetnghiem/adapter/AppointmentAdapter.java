@@ -76,6 +76,7 @@ public class AppointmentAdapter extends BaseAdapter {
             holder.txtPurpose = view.findViewById(R.id.txt_purpose);
             holder.txtDoctorName = view.findViewById(R.id.txt_doctor);
             holder.txtConclusion = view.findViewById(R.id.txt_conclusion);
+
 //            switch (rowType) {
 //                case TYPE_NEW:
 //                    view = inflater.inflate(R.layout.item_appointment_detail, null);

@@ -51,7 +51,8 @@ public class Appointment implements Serializable {
     }
 
     public String getDoctorName() {
-        return doctorName;
+//        return doctorName;
+        return "";
     }
 
     public void setDoctorName(String doctorName) {
@@ -75,7 +76,8 @@ public class Appointment implements Serializable {
     }
 
     public String getTestPurpose() {
-        return testPurpose;
+//        return testPurpose;
+        return "";
     }
 
     public void setTestPurpose(String testPurpose) {
@@ -83,7 +85,8 @@ public class Appointment implements Serializable {
     }
 
     public String getConclusion() {
-        return conclusion;
+//        return conclusion;
+        return "";
     }
 
     public void setConclusion(String conclusion) {
