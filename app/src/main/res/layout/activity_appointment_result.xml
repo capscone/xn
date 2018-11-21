@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,6 +11,9 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 <LinearLayout
+    android:id="@+id/info_section"
+    android:layout_below="@id/toolbar"
+    android:layout_above="@+id/link"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -105,5 +108,19 @@
     <ListView
         android:id="@+id/listview_result"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView></LinearLayout>
+        android:layout_height="wrap_content"></ListView>
+
+
 </LinearLayout>
+    <TextView
+    android:id="@+id/link"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:autoLink="web"
+        android:layout_alignParentBottom="true"
+    android:layout_marginLeft="16dp"
+        android:layout_marginBottom="10dp"
+    android:text="Gợi ý các bệnh viện có khoa chuyên ngành"
+
+    />
+</RelativeLayout>

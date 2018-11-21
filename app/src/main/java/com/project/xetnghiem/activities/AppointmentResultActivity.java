@@ -1,7 +1,10 @@
 package com.project.xetnghiem.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,6 +43,7 @@ public class AppointmentResultActivity extends BaseActivity {
     private TextView tvTimeReg;
     private TextView tvAddress;
     private TextView tvGender;
+    private TextView txtLink;
 
     @Override
     protected int getLayoutView() {
@@ -68,6 +72,14 @@ public class AppointmentResultActivity extends BaseActivity {
         tvDateReg = findViewById(R.id.tv_date_register);
         tvTimeReg = findViewById(R.id.tv_time_register);
         tvPatientYear = findViewById(R.id.tv_birth_year);
+        txtLink = findViewById(R.id.link);
+        txtLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open(AppointmentResultActivity.this,
+                        "http://eltms.azurewebsites.net/UserWeb/Appointment/Suggest");
+            }
+        });
     }
 
     @Override
@@ -145,5 +157,13 @@ public class AppointmentResultActivity extends BaseActivity {
             case "FEMALE" : return "Nữ";
             default: return "Khác";
         }
+    }
+    void open(Activity activity, String url) {
+        Uri uri = Uri.parse("googlechrome://navigate?url=" + url);
+        Intent i = new Intent(Intent.ACTION_VIEW, uri);
+        if (i.resolveActivity(activity.getPackageManager()) == null) {
+            i.setData(Uri.parse(url));
+        }
+        activity.startActivity(i);
     }
 }
