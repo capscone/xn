@@ -86,7 +86,9 @@ public class LoginActivity extends BaseActivity {
         CircleImageView cicleAvatar = toolbar.findViewById(R.id.imgAvatar);
         backBtn.setVisibility(View.INVISIBLE);
         cicleAvatar.setVisibility(View.INVISIBLE);
-        if (CoreManager.getPatient(this) != null) {
+        if (CoreManager.getPatient(this) != null && CoreManager.getPatient((this)).getPhone().equals("1234567789")) {
+            redirectToNurseMain();
+        } else if(CoreManager.getPatient(this)!=null){
             redirectToMain();
         }
         tvLinkRegister.setOnClickListener((v) -> {
@@ -158,14 +160,24 @@ public class LoginActivity extends BaseActivity {
         patient.setAddress("VIet nam");
         patient.setGender("FEMALE");
         patient.setName("Pro");
-        patient.setPhone("0909999999");
+        patient.setPhone(txtPhone.getText().toString().trim());
         patient.setId(1);
         CoreManager.setPatient(this, patient);
-        redirectToMain();
+        if (txtPhone.getText().toString().trim().equals("123456789")) {
+            redirectToNurseMain();
+        } else {
+            redirectToMain();
+        }
     }
 
-    public void redirectToMain(){
+    public void redirectToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void redirectToNurseMain() {
+        Intent intent = new Intent(LoginActivity.this, DoneApptActivity.class);
         startActivity(intent);
         finish();
     }
