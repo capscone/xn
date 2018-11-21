@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:inputType="textMultiLine"
+            android:gravity="right"
             android:text="Chỉ số bình thường"
             android:minLines="2"
             android:textStyle="bold" />

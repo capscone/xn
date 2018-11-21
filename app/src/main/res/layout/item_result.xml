@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="indexname" />
+        android:text=" " />
 
     <TextView
         android:id="@+id/txt_lower_result"
@@ -25,13 +25,13 @@
 
     <TextView
         android:id="@+id/txt_normal_result"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textStyle="bold"
-        android:text=" " />
+        android:text="  " />
 
     <TextView
         android:id="@+id/txt_high_result"
@@ -46,8 +46,9 @@
 
     <TextView
         android:id="@+id/txt_result_range"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:layout_alignParentRight="true"
-        android:text="range" />
+        android:text=" " />
 </RelativeLayout>
