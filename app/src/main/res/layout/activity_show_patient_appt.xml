@@ -10,10 +10,12 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <com.baoyz.swipemenulistview.SwipeMenuListView
+    <ListView
         android:id="@+id/swipe_list_appointment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:dividerHeight="10.0sp"
+        >
 
-    </com.baoyz.swipemenulistview.SwipeMenuListView>
+    </ListView>
 </LinearLayout>

@@ -2,7 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:background="@drawable/border_left_positive"
+    android:paddingStart="20dp"
+    android:layout_marginTop="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    >
 
     <TextView
         android:id="@+id/txt_appointment_code"
@@ -10,30 +15,58 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="5dp"
+        android:textStyle="bold"
         android:text="appointment code" />
-
-    <TextView
-        android:id="@+id/txt_purpose"
+    <LinearLayout
+        android:id="@+id/labtest_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_toEndOf="@id/txt_appointment_code"
-        android:text="purpose" />
-
-    <TextView
-        android:id="@+id/txt_doctor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:orientation="vertical"
         android:layout_below="@id/txt_appointment_code"
-        android:text="doctor name" />
+        >
 
+    </LinearLayout>
     <TextView
-        android:id="@+id/txt_conclusion"
+        android:id="@+id/txt_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_below="@id/txt_doctor"
-        android:text="conclusion" />
+        android:layout_below="@+id/labtest_linear"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:text=""/>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    >
 
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:background="@color/color_transparent"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+
+        />
+    <ImageButton
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:background="@color/color_transparent"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        /><ImageButton
+    android:id="@+id/btn_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_remove_red_eye_black_24dp"
+    android:background="@color/color_transparent"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    />
+</LinearLayout>
 </RelativeLayout>
