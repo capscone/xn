@@ -172,7 +172,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     }
 
-    public abstract void updateUIData(Object obj);
+    public  void updateUIData(Object obj){};
+    public  void updateUIData(){};
 
     public void redirectToActivity(Class<?> tClass, boolean forceFinish) {
         Intent intent = new Intent(this, tClass);

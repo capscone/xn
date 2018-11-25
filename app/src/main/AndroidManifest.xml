@@ -52,7 +52,8 @@
         <activity android:name=".activities.TestActivity" />
         <activity android:name=".activities.EditAppointmentActivity" />
         <activity android:name=".activities.ShowAppointmentActivity" />
-        <activity android:name=".activities.DoneApptActivity"></activity>
+        <activity android:name=".activities.DoneApptActivity" />
+        <activity android:name=".activities.ApptDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -81,7 +81,8 @@ public class AppointmentAdapter extends BaseAdapter {
             holder.txtStatus = view.findViewById(R.id.txt_status);
             holder.btnDelete = view.findViewById(R.id.btn_delete);
             holder.btnEdit = view.findViewById(R.id.btn_edit);
-            holder.btnView = view.findViewById(R.id.btn_view);
+            holder.btnView = view.findViewById(R.id.btn_view_result);
+            holder.btnDetail = view.findViewById(R.id.btn_detail);
             holder.btnDelete.setOnClickListener((v) -> {
                 appointmentAdapterListener.onDeleteClick(v, appointment, position);
             });
@@ -90,6 +91,9 @@ public class AppointmentAdapter extends BaseAdapter {
             });
             holder.btnView.setOnClickListener((v) -> {
                 appointmentAdapterListener.onViewClick(v, appointment, position);
+            });
+            holder.btnDetail.setOnClickListener((v) -> {
+                appointmentAdapterListener.onDetailClick(v, appointment, position);
             });
 
 //            switch (rowType) {
@@ -158,6 +162,7 @@ public class AppointmentAdapter extends BaseAdapter {
         public TextView txtAppointmentCode;
         public TextView txtStatus;
         public ImageButton btnEdit;
+        public ImageButton btnDetail;
         public ImageButton btnView;
         public ImageButton btnDelete;
         public LinearLayout labtestLinear;
@@ -169,6 +174,8 @@ public class AppointmentAdapter extends BaseAdapter {
         void onViewClick(View v, Appointment appt, int position);
 
         void onEditClick(View v, Appointment appt, int position);
+
+        void onDetailClick(View v, Appointment appt, int position);
     }
 
 }

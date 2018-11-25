@@ -23,6 +23,12 @@ public class AppointmentDetail implements Serializable {
     private int slotId;
     @SerializedName("TableId")
     private int tableId;
+    @SerializedName("LabTests")
+    private List<LabTest> labTests;
+    @SerializedName("FmStartTime")
+    private String fmStartTime;
+    @SerializedName("FmFinishTime")
+    private String fmFinishTime;
     private String appointmentCode;
     private boolean isHeader = false;
 
@@ -111,5 +117,29 @@ public class AppointmentDetail implements Serializable {
 
     public void setTableId(int tableId) {
         this.tableId = tableId;
+    }
+
+    public List<LabTest> getLabTests() {
+        return labTests;
+    }
+
+    public void setLabTests(List<LabTest> labTests) {
+        this.labTests = labTests;
+    }
+
+    public String getFmStartTime() {
+        return fmStartTime;
+    }
+
+    public void setFmStartTime(String fmStartTime) {
+        this.fmStartTime = fmStartTime;
+    }
+
+    public String getFmFinishTime() {
+        return fmFinishTime;
+    }
+
+    public void setFmFinishTime(String fmFinishTime) {
+        this.fmFinishTime = fmFinishTime;
     }
 }

@@ -2,9 +2,10 @@ package com.project.xetnghiem.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class LabTest {
+public class LabTest  implements Serializable {
     @SerializedName("LabTestId")
     private int labTestId;
     @SerializedName("LabTestIds")
@@ -16,8 +17,11 @@ public class LabTest {
     private String description;
     @SerializedName("Price")
     private int price;
+    @SerializedName("LabTestCode")
+    private String labTestCode;
     private boolean isChecked;
     private boolean isHeader = false;
+    @SerializedName("SampleId")
     private int sampleId;
     public LabTest(boolean isHeader, String sampleName) {
         this.isHeader = isHeader;
@@ -94,5 +98,13 @@ public class LabTest {
 
     public void setLabTestIds(List<Integer> labTestIds) {
         this.labTestIds = labTestIds;
+    }
+
+    public String getLabTestCode() {
+        return labTestCode;
+    }
+
+    public void setLabTestCode(String labTestCode) {
+        this.labTestCode = labTestCode;
     }
 }
