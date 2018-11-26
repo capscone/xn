@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <ListView
-        android:id="@+id/swipe_list_appointment"
+        android:id="@+id/list_appointment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="10.0sp"

@@ -139,7 +139,7 @@ public class AppointmentResultActivity extends BaseActivity {
     public void updateUIData(Object obj) {
         ResultOfAppointmentDto dto = (ResultOfAppointmentDto) obj;
         tvAddress.setText("Địa chỉ: " + dto.getPatientAddress());
-        tvGender.setText("Giới tính: " + getMaleInVN(dto.getPatientGender()));
+        tvGender.setText("Giới tính: " + getGenderInVN(dto.getPatientGender()));
         tvName.setText("Họ tên: " + dto.getPatientName());
         String regDate = DateUtils.changeDateFormat(dto.getEnterTime(), DateTimeFormat.DATE_TIME_DB_3, DateTimeFormat.DATE_TIME_DB_2);
         tvDateReg.setText("Ngày ĐK: " + regDate);
@@ -151,7 +151,7 @@ public class AppointmentResultActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private String getMaleInVN(String val){
+    private String getGenderInVN(String val){
         switch (val){
             case "MALE":return "Nam";
             case "FEMALE" : return "Nữ";

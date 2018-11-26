@@ -1,8 +1,10 @@
 package com.project.xetnghiem.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -68,7 +70,7 @@ public class ShowAppointmentActivity extends BaseActivity implements Appointment
 
     @Override
     public void bindView() {
-        listView = findViewById(R.id.swipe_list_appointment);
+        listView = findViewById(R.id.list_appointment);
     }
 
     public void deleteAppt(int appointmentId) {
@@ -124,7 +126,16 @@ public class ShowAppointmentActivity extends BaseActivity implements Appointment
 
     @Override
     public void onDeleteClick(View v, Appointment appt, int position) {
-        deleteAppt(appt.getAppointmentId());
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShowAppointmentActivity.this);
+        builder.setMessage("Bạn có muốn xóa?")
+                .setNegativeButton("Hủy",(dialogInterface, i) -> {} )
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteAppt(appt.getAppointmentId());
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

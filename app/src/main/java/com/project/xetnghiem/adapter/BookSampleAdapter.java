@@ -78,30 +78,17 @@ public class BookSampleAdapter extends BaseAdapter {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            Calendar currentDay = Calendar.getInstance();
             holder.txtDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
+            dto.setDateStr(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_TIME_DB_2));
             holder.txtDate.setOnClickListener((vw) ->
             {
                 DatePickerDialog dialog = new DatePickerDialog(context,
                         (DatePicker datePicker, int iYear, int iMonth, int iDay) -> {
                             String date = iDay + "/" + (iMonth + 1) + "/" + iYear;
                             c.set(iYear, iMonth, iDay, 23, 59);
-//                            if (currentDay.after(c)) {
-////                                tvDateError.setText(getString(R.string.label_error_appnt_date));
-////                                isDateValid = false;
-//                            } else {
-////                                tvDateError.setText("");
-////                                isDateValid = true;
-//                            }
                             txtDateFinal.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
                             dto.setDateStr(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_TIME_DB_2));
-//                            holder.txtDate.setTextColor(
-//                                    ContextCompat.getColor(getContext(), R.color.color_black)
-//                            );
                         }, year, month, day);
-//                dialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.OK), dialog);
-//                dialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.Cancel), (DialogInterface.OnClickListener) null);
-
                 dialog.show();
             });
 
