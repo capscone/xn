@@ -67,7 +67,7 @@ public class DoneApptActivity extends BaseActivity {
             public void onClick(View view) {
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(DoneApptActivity.this);
-                dialogBuilder.setMessage("Bạn có chắc không?")
+                dialogBuilder.setMessage("Bạn có chắc chắn không?")
                         .setPositiveButton("Có", (dialogInterface, i) -> {
                             if (sampleId != -1) {
                                 update(sampleId);
@@ -95,8 +95,8 @@ public class DoneApptActivity extends BaseActivity {
 
     public void setData(int code, String type, String name) {
         txtSampleCode.setText("Mã vạch: " + code);
-        txtCustomerName.setText("Tên bệnh nhân: " + type);
-        txtSampleType.setText("Loại mẫu: " + name);
+        txtCustomerName.setText("Tên bệnh nhân: " + name);
+        txtSampleType.setText("Loại mẫu: " + type);
     }
 
     public void search(String searchVal) {

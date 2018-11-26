@@ -19,9 +19,8 @@
             android:id="@+id/edt_search_sample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mã sản phẩm"
             android:layout_alignParentTop="true"
-            />
+            android:hint="Mã mẫu xét nghiệm" />
         <Button
             android:id="@+id/btn_search_sample"
             android:layout_width="wrap_content"
