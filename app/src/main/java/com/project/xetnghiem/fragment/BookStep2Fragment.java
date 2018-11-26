@@ -175,7 +175,9 @@ public class BookStep2Fragment extends BaseFragment {
 //            dtos.setStartTime(dateFormat + " " + dtimes[1].trim());
             dtos.setLabTestIds(listIdLabTests);
             dtos.setSampleId(dto.getSampleId());
-            dtos.setGetttingDate(dto.getDateStr());
+
+            String currentDate = DateUtils.getDate(Calendar.getInstance().getTime(), DateTimeFormat.DATE_TIME_DB_2);
+            dtos.setGetttingDate(dto.getDateStr()==null ? currentDate : dto.getDateStr());
             dtos.setSlotId(dto.getSelectedSlotId());
             list.add(dtos);
         }

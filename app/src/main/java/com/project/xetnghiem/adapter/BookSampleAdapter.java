@@ -79,7 +79,7 @@ public class BookSampleAdapter extends BaseAdapter {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
             holder.txtDate.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
-            dto.setDateStr(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_TIME_DB_2));
+
             holder.txtDate.setOnClickListener((vw) ->
             {
                 DatePickerDialog dialog = new DatePickerDialog(context,
@@ -88,6 +88,7 @@ public class BookSampleAdapter extends BaseAdapter {
                             c.set(iYear, iMonth, iDay, 23, 59);
                             txtDateFinal.setText(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_APP));
                             dto.setDateStr(DateUtils.getDate(c.getTime(), DateTimeFormat.DATE_TIME_DB_2));
+                            int a = 0;
                         }, year, month, day);
                 dialog.show();
             });
@@ -106,9 +107,6 @@ public class BookSampleAdapter extends BaseAdapter {
                 String tmp = time + " - " + time2;
                 lst.add(tmp);
             }
-if(dto.getSlotDtos() == null){
-                int b = 1;
-}
             TimeSpinnerAdapter adapter = new TimeSpinnerAdapter(context, dto.getSlotDtos());
             holder.spnTime.setAdapter(adapter);
             holder.spnTime.setSelection(adapter.getPosition(dto.getSelectedSlotId()));
