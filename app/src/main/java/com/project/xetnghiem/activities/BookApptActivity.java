@@ -37,6 +37,7 @@ public class BookApptActivity extends BaseActivity implements BookStep1Fragment.
     private List<SampleDto> listTmpSampleDto;
     private List<Slot> listAvailableSlots;
     private Button btnNextStep;
+    
     private Button btnPrevStep;
 
     @Override
