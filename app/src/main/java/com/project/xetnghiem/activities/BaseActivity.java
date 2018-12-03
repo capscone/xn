@@ -35,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private ProgressDialog progressDialog;
     private static int numNotification = 0;
 
+    // Tool bar
     private ImageButton btnNotification;
     private ImageButton btnBack;
     private TextView txtNumNotification;
@@ -58,7 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getMainTitle());
-        showMessNetword();
+//        showMessNetword();
         setContentView(getLayoutView());
         bindView();
         initToolbar();

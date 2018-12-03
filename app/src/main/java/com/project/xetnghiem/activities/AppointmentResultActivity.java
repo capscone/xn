@@ -82,6 +82,7 @@ public class AppointmentResultActivity extends BaseActivity {
         });
     }
 
+    // Perform calling APIs...
     @Override
     protected void callDataResource() {
         showLoading();
